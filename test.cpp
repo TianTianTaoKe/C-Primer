@@ -62,6 +62,5 @@ int main(int argc, char * argv[])
 	int score = a - b;
 	cout << score << endl;
 	system("pause");
-	print();
 }
 
