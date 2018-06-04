@@ -455,13 +455,233 @@ unsigned data::GetMonth(string &month)
 	return 0;
 }
 
-
-
-int Exercise9_52(string expression)
+enum obj_type
 {
+	LP,RP,ADD,SUM,VAL
+};
 
-	return 0;
+struct obj 
+{
+	obj_type t;
+	double v;
+	obj(obj_type type, double val = 0){ t = type; v = val; }
+};
+
+inline void skipws(string &exp, size_t &p)
+{
+	p = exp.find_first_not_of(" ", p);
 }
+inline void new_val(stack <obj>&so, double v)
+{
+	if (so.empty() || so.top().t == LP)
+	{
+		so.push(obj(VAL, v));
+	}
+	else if (so.top().t == ADD || so.top().t == SUM)
+	{
+		obj_type type = so.top().t;
+		so.pop();
+		if (type == ADD)
+		{
+			v += so.top().v;
+		}
+		else
+		{
+			v = so.top().v - v;
+		}
+		so.pop();
+		so.push(obj(VAL, v));
+	}
+	else
+	{
+		throw invalid_argument("»±…Ÿ‘ÀÀ„∑˚");
+	}
+}
+
+double Exercise9_52(string & strExp)
+{
+	stack <obj> so;
+	size_t p = 0,q;
+	double v;
+	while (p < strExp.size())
+	{
+		skipws(strExp, p);
+		if (strExp[p] == '(')
+		{
+			so.push(obj(LP));
+			p++;
+		}
+		else if (strExp[p] == '+' || strExp[p] == '-')
+		{
+			if (so.empty() || so.top().t != VAL)
+			{
+				throw invalid_argument("»±…Ÿ‘ÀÀ„ ˝");
+			}
+			if (strExp[p] == '+')
+			{
+				so.push(obj(ADD));
+			}
+			else
+				so.push(obj(SUM));
+			p++;
+		}
+		else if (strExp[p] == ')')
+		{
+			p++;
+			if (so.empty())
+			{
+				throw invalid_argument("Œ¥∆•≈‰”“¿®∫≈");
+			}
+			else if (so.top().t == LP)
+			{
+				throw invalid_argument("ø’¿®∫≈");
+			}
+			else if (so.top().t == VAL)
+			{
+				v = so.top().v;
+				so.pop();
+				if (so.top().t != LP)
+				{
+					throw invalid_argument("Œ¥∆•≈‰”“¿®∫≈");
+				}
+				so.pop();
+				new_val(so, v);
+			}
+			else
+			{
+				throw invalid_argument("»±…Ÿ‘ÀÀ„ ˝");
+			}
+		}
+		else
+		{
+			v = stod(strExp.substr(p), &q);
+			p += q;
+			new_val(so, v);
+		}
+	}
+	if (so.size() != 1 || so.top().t != VAL)
+	{
+		throw invalid_argument("∑«∑®±Ì¥Ô Ω");
+	}
+
+	return so.top().v;
+}
+//
+//enum obj_type
+//{
+//	LP,RP,ADD,SUB,VAL
+//};
+//
+//struct obj
+//{
+//	obj(obj_type type, double val = 0){ t = type; v = val; }
+//	obj_type t;
+//	double v;
+//};
+//
+//inline void skipws(string &exp, size_t &p)
+//{
+//	p = exp.find_first_not_of(" ", p);
+//}
+//
+//inline void new_val(stack<obj>&so, double v)
+//{
+//	if (so.empty() || so.top().t == LP)
+//	{
+//		so.push(obj(VAL, v));
+//	}
+//	else if (so.top().t == ADD || so.top().t == SUB)
+//	{
+//		obj_type type = so.top().t;
+//		so.pop();
+//		if (type == ADD)
+//		{
+//			v += so.top().v;
+//		}
+//		else
+//		{
+//			v = so.top().v - v;
+//		}
+//		so.pop();
+//		so.push(obj(VAL, v));
+//	}
+//	else
+//	{
+//		throw invalid_argument("»±…Ÿ‘ÀÀ„∑˚");
+//	}
+//}
+//
+//
+//int Exercise_52(string &strExpression)
+//{
+//	stack<obj> so;
+//	size_t p = 0, q;
+//	double v;
+//	while (p < strExpression.size())
+//	{
+//		skipws(strExpression, p);
+//		if (strExpression[p] == '(')
+//		{
+//			so.push(obj(LP));
+//			p++;
+//		}
+//		else if (strExpression[p] == '+' || strExpression[p] == '-')
+//		{
+//			if (so.empty() || so.top().t != VAL)
+//			{
+//				throw invalid_argument("»±…Ÿ‘ÀÀ„ ˝");
+//			}
+//			if (strExpression[p] == '+')
+//			{
+//				so.push(obj(ADD));
+//			}
+//			else
+//			{
+//				so.push(obj(SUB));
+//			}
+//			p++;
+//		}
+//		else if (strExpression[p] == ')')
+//		{
+//			p++;
+//			if (so.empty())
+//			{
+//				throw invalid_argument("Œ¥∆•≈‰”“¿®∫≈");
+//			}
+//			if (so.top().t == LP)
+//			{
+//				throw invalid_argument("ø’¿®∫≈");
+//			}
+//			if (so.top().t == VAL)
+//			{
+//				v = so.top().v;0
+//				so.pop();
+//				if (so.empty() || so.top().t != LP)
+//				{
+//					throw invalid_argument("Œ¥∆•≈‰”“¿®∫≈");
+//				}
+//				so.pop();
+//				new_val(so, v);
+//			}
+//			else
+//			{
+//				throw invalid_argument("»±…Ÿ‘ÀÀ„ ˝");
+//			}
+//		}
+//		else
+//		{
+//			v = stod(strExpression.substr(p), &q);
+//			p += q;
+//			new_val(so, v);
+//		}
+//	}
+//	if (so.size() != 1 || so.top().t != VAL)
+//	{
+//		throw invalid_argument("∑«∑®±Ì¥Ô Ω");
+//	}
+//
+//	return so.top().v;
+//}
 
 string strOperator = { "+-*/{}" };
 
