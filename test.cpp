@@ -55,12 +55,16 @@ const int  sz = cnt;
 
 int main(int argc, char * argv[])
 {
-	unsigned char a = 1;
-	unsigned char b = 2;
-	const int i = 1;
-	int arr[i] = { 0 };
-	int score = a - b;
-	cout << score << endl;
+	try
+	{
+		cout << Exercise9_52(string("(1+2 -1 - 4-(4+5)+5)")) << endl;
+	}
+	catch (invalid_argument e)
+	{
+		cout << e.what() << endl;
+	}
+
+	
 	system("pause");
 }
 
