@@ -56,7 +56,7 @@ const int  sz = cnt;
 
 int main(int argc, char * argv[])
 {
-	Exercise10_13();
+	Exercise10_19();
 	system("pause");
 }
 
