@@ -78,6 +78,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Chapter10.cpp" />
     <ClCompile Include="Chapter9.cpp" />
     <ClCompile Include="Chapter8.cpp" />
     <ClCompile Include="fact.cpp" />
@@ -88,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Book.h" />
+    <ClInclude Include="Chapter10.h" />
     <ClInclude Include="Chapter6.h" />
     <ClInclude Include="Chapter8.h" />
     <ClInclude Include="Chapter9.h" />

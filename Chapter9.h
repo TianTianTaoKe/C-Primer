@@ -83,7 +83,6 @@ int Exercise9_50(vecstr & strVec);
 
 double Exercise9_52(string &strExpression);
 
-
 //9.51
 
 class data
