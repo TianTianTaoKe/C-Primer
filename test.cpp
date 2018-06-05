@@ -4,6 +4,7 @@
 #include "Chapter6.h"
 #include "Chapter8.h"
 #include "Chapter9.h"
+#include "Chapter10.h"
 #include "Sales_data.h"
 #include "Screen.h"
 #include <fstream>
@@ -55,16 +56,7 @@ const int  sz = cnt;
 
 int main(int argc, char * argv[])
 {
-	try
-	{
-		cout << Exercise9_52(string("(1+2 -1 - 4-(4+5)+5)")) << endl;
-	}
-	catch (invalid_argument e)
-	{
-		cout << e.what() << endl;
-	}
-
-	
+	Exercise10_21();
 	system("pause");
 }
 
