@@ -43,3 +43,7 @@ void Exercise10_17(const char * filePath);
 void Exercise10_18();
 
 void Exercise10_19();
+
+void Exercise10_20();
+
+void Exercise10_21();

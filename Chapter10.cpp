@@ -251,3 +251,21 @@ void Exercise10_19()
 
 	for_each(veci.begin(), wc, [](const string & a){cout << a << " "; });
 }
+
+void Exercise10_20()
+{
+	vector<string> veci = { "abcy", "erty", "tyutyt", "art", "abcy", "tyu" };
+	int count = count_if(veci.begin(), veci.end(), [](const string &str){return str.size() >= 6; });
+	cout << count << endl;
+}
+
+void Exercise10_21()
+{
+	int a = 10;
+	auto f = [&a]{return (--a) == 0; };
+	int i = 0;
+	while (!f())
+	{
+		cout << ++i << endl;
+	}
+}
