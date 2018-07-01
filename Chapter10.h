@@ -7,6 +7,7 @@
 #include <list>
 #include <string>
 #include <fstream>
+#include <functional>
 
 #include "Sales_data.h"
 
@@ -17,6 +18,7 @@ using std::vector;
 using std::list;
 using std::string;
 using std::ifstream;
+using namespace std::placeholders;
 
 void Exercise10_1();
 
@@ -47,3 +49,9 @@ void Exercise10_19();
 void Exercise10_20();
 
 void Exercise10_21();
+
+void Exercise10_22();
+
+void Exercise10_24();
+
+void Exercise10_25();
