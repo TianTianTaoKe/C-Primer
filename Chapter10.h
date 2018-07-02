@@ -55,3 +55,7 @@ void Exercise10_22();
 void Exercise10_24();
 
 void Exercise10_25();
+
+void Exercise10_27();
+
+void Exercise10_28();

@@ -305,3 +305,21 @@ void Exercise10_25()
 	vector<string>::iterator iter = partition(veci.begin(), veci.end(), bind(check_size,_1,sz));
 	PrintWords(veci.begin(), iter);
 }
+
+void Exercise10_27()
+{
+	vector<int> veci = { 5, 6, 7, 8, 8, 9 };
+	list <int> lsti;	
+	unique_copy(veci.begin(),veci.end(),back_inserter(lsti));
+}
+
+void Exercise10_28()
+{
+	vector<int> veci = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	list <int> lsti1,lsti2,lsti3,lsti4;
+	unique_copy(veci.begin(), veci.end(), back_inserter(lsti1));
+	unique_copy(veci.begin(), veci.end(), front_inserter(lsti2));
+	unique_copy(veci.begin(), veci.end(), inserter(lsti3,lsti3.begin()));
+	unique_copy(veci.begin(), veci.end(), inserter(lsti4, lsti4.end()));
+	int a = 0;
+}
