@@ -269,3 +269,39 @@ void Exercise10_21()
 		cout << ++i << endl;
 	}
 }
+
+bool isEnoughSize(const string &str, int sz)
+{
+	return str.size() >= sz;
+}
+
+void Exercise10_22()
+{
+	vector<string> veci = { "abcy", "erty", "tyutyt", "arttty", "abcy", "tyu" };
+	int sz = 6;
+	auto fun = bind(isEnoughSize, _1, sz);
+	int count = count_if(veci.begin(), veci.end(), fun);
+	cout << count << endl;
+}
+
+bool check_size(const string & str, int sz)
+{
+	return str.size() >= sz;
+}
+
+void Exercise10_24()
+{
+	vector <int> veci = { 5, 6, 7, 4, 5, 8, 9 };
+	string str = "1234567";
+	auto pos = find_if(veci.begin(), veci.end(), bind(check_size, str, _1));
+	cout << "µÚ" << pos - veci.begin() + 1 << endl;
+}
+
+void Exercise10_25()
+{
+	vector<string> veci = { "abc", "ertyy", "tyu", "artyy", "abc", "tyuu" };
+	PrintWords(veci.begin(), veci.end());
+	int sz = 5;
+	vector<string>::iterator iter = partition(veci.begin(), veci.end(), bind(check_size,_1,sz));
+	PrintWords(veci.begin(), iter);
+}
