@@ -10,6 +10,7 @@
 #include <fstream>
 #include <sstream>
 #include <math.h>
+#include <map>
 
 #define NDEBUG
 using std::cin;
@@ -54,9 +55,52 @@ std::istream& f(std::istream& in)
 int cnt = 0;
 const int  sz = cnt;
 
+class A
+{
+public:
+	A();
+	~A();
+	int a;
+private:
+
+};
+
+A::A()
+{
+	a = 10;
+}
+
+A::~A()
+{
+}
+
+class B
+{
+public:
+	A aa;
+	int b;
+	B();
+	~B();
+	B(const B& rhs);
+};
+
+B::B()
+{
+
+}B::~B()
+{
+
+}
+B::B(const B& rhs)
+{
+	b = rhs.b;
+}
+
+
 int main(int argc, char * argv[])
 {
-	Exercise10_28();
+	Exercise10_33();
+
 	system("pause");
 }
 

@@ -8,6 +8,7 @@
 #include <string>
 #include <fstream>
 #include <functional>
+#include <iterator>
 
 #include "Sales_data.h"
 
@@ -59,3 +60,11 @@ void Exercise10_25();
 void Exercise10_27();
 
 void Exercise10_28();
+
+void Exercise10_29();
+
+void Exercise10_30();
+
+void Exercise10_31();
+
+void Exercise10_33();
