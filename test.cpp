@@ -5,7 +5,6 @@
 #include "Chapter8.h"
 #include "Chapter9.h"
 #include "Chapter10.h"
-#include "Sales_data.h"
 #include "Screen.h"
 #include <fstream>
 #include <sstream>
@@ -99,7 +98,7 @@ B::B(const B& rhs)
 
 int main(int argc, char * argv[])
 {
-	Exercise10_33();
+	Exercise10_42();
 
 	system("pause");
 }
