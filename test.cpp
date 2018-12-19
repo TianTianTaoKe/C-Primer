@@ -5,6 +5,7 @@
 #include "Chapter8.h"
 #include "Chapter9.h"
 #include "Chapter10.h"
+#include "Chapter11.h"
 #include "Screen.h"
 #include <fstream>
 #include <sstream>
@@ -79,14 +80,20 @@ public:
 	A aa;
 	int b;
 	B();
+	B(int v);
 	~B();
 	B(const B& rhs);
 };
 
 B::B()
 {
-
-}B::~B()
+	b = 15;
+}
+B::B(int v)
+{
+	b = v;
+}
+B::~B()
 {
 
 }
@@ -98,7 +105,7 @@ B::B(const B& rhs)
 
 int main(int argc, char * argv[])
 {
-	Exercise10_42();
+	Exercise11_2();
 
 	system("pause");
 }
