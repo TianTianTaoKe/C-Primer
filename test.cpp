@@ -105,7 +105,22 @@ B::B(const B& rhs)
 
 int main(int argc, char * argv[])
 {
-	Exercise11_2();
+	Exercise11_4();
+
+	union
+	{
+		struct 
+		{
+			int a : 7;
+			int b : 3;
+		};
+		int c;
+	}aa;
+
+	aa.c = 0;
+	aa.b = 7;
+
+	cout << aa.c << endl;
 
 	system("pause");
 }

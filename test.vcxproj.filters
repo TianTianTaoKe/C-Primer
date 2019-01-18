@@ -39,9 +39,6 @@
     <ClCompile Include="Chapter10.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Chapter.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Chapter11.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

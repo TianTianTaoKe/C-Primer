@@ -1,6 +1,6 @@
 #include "Chapter11.h"
 
-void Exercise11_1()
+void Exercise11_3()
 {
 	ifstream ifile("D:\\Code\\test\\Debug\\book.txt", ifstream::in);
 	string word;
@@ -30,7 +30,7 @@ void Trans(string &str)
 	}
 }
 
-void Exercise11_2()
+void Exercise11_4()
 {
 	ifstream ifile("D:\\Code\\test\\Debug\\book.txt", ifstream::in);
 	string word;

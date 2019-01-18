@@ -12,8 +12,8 @@ using std::string;
 using std::ifstream;
 using std::ofstream;
 
-void Exercise11_1();
+void Exercise11_3();
 
 void Trans(string &str);
 
-void Exercise11_2();
+void Exercise11_4();

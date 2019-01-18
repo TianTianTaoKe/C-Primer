@@ -78,7 +78,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Chapter.cpp" />
     <ClCompile Include="Chapter10.cpp" />
     <ClCompile Include="Chapter11.cpp" />
     <ClCompile Include="Chapter9.cpp" />
