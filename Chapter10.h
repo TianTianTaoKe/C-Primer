@@ -12,6 +12,7 @@
 
 #include "Sales_data.h"
 
+
 using std::cin;
 using std::cout;
 using std::endl;
@@ -67,4 +68,16 @@ void Exercise10_30();
 
 void Exercise10_31();
 
+void Exercise10_32();
+
 void Exercise10_33();
+
+void Exercise10_34();
+
+void Exercise10_35();
+
+void Exercise10_36();
+
+void Exercise10_37();
+
+void Exercise10_42();

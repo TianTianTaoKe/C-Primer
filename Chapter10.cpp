@@ -1,5 +1,5 @@
 #include "Chapter10.h"
-
+#include "Sales_item.h"
 void Exercise10_1()
 {
 	vector<int> veci = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 6, 7, 6 };
@@ -97,7 +97,7 @@ void Exercise10_11()
 	}
 }
 
-bool compareIsbn(const Sales_data& book1, const Sales_data& book2)
+bool compareIsbnEX(const Sales_data& book1, const Sales_data& book2)
 {
 	return book1.isbn() < book2.isbn();
 }
@@ -118,7 +118,7 @@ void Exercise10_12(const char * filePath)
 		vecSalesData.push_back(temp);
 	}
 
-	sort(vecSalesData.begin(), vecSalesData.end(), compareIsbn);
+	sort(vecSalesData.begin(), vecSalesData.end(), compareIsbnEX);
 	for (const auto &s:vecSalesData)
 	{
 		print(cout, s);
@@ -365,6 +365,26 @@ void Exercise10_31()
 	unique_copy(iVec.begin(), iVec.end(), outIter);
 }
 
+void Exercise10_32()
+{
+	std::istream_iterator<Sales_item> iIter(cin);
+	std::istream_iterator<Sales_item> eofIter;
+	vector<Sales_item> saleDataVec;
+	while (iIter != eofIter)
+	{
+		saleDataVec.push_back(*iIter++);
+	}
+	sort(saleDataVec.begin(), saleDataVec.end(), compareIsbn);
+	auto lIter = saleDataVec.begin();
+	while (lIter != saleDataVec.end())
+	{
+		Sales_item data = *lIter;
+		auto rIter = find_if(lIter, saleDataVec.end(), [data](const Sales_item& date1){return date1.isbn() != data.isbn(); });
+		cout << accumulate(lIter + 1, rIter, data) << endl;
+		lIter = rIter;
+	}
+}
+
 void Exercise10_33()
 {
 	ifstream ifile("123.txt");
@@ -385,5 +405,96 @@ void Exercise10_33()
 		{
 			oOddIter = a;
 		}
+	}
+}
+
+void Exercise10_34()
+{
+	vector<int> nVec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+	vector<int> ::reverse_iterator revIter = nVec.rbegin();
+	while (revIter != nVec.rend())
+	{
+		cout << *revIter++ << endl;
+	}
+}
+
+void Exercise10_35()
+{
+	vector<int> nVec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+	vector<int>::iterator iter = nVec.end();
+	while (iter != nVec.begin())
+	{
+		cout << *--iter << endl;
+	}
+}
+
+void Exercise10_36()
+{
+	list<int> nList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+	list<int>::reverse_iterator revIterPos = find(nList.rbegin(), nList.rend(), 0);
+	list<int>::reverse_iterator revIter = nList.rbegin();
+	int pos = 0;
+	while (revIter != revIterPos)
+	{
+		pos++;
+		revIter++;
+	}
+	pos = nList.size() - 1 - pos;
+	if (pos < 0)
+	{
+		cout << "没有找到" << endl;
+	}
+	else
+	{
+		cout << pos << endl;
+	}
+	if (revIterPos == nList.rend())
+	{
+		cout << "没有找到" << endl;
+		//return;
+	}
+	revIterPos++;
+	list<int>::iterator iterPos = revIterPos.base();
+	list<int>::iterator iter = nList.begin();
+	pos = 0;
+	while (iter != iterPos)
+	{
+		pos++;
+		iter++;
+	}
+	if (pos >= nList.size())
+	{
+		cout << "没有找到" << endl;
+	}
+	else
+	{
+		cout << pos << endl;
+	}
+}
+
+void Exercise10_37()
+{
+	vector<int> nVec = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+	list<int>nList;
+	copy(nVec.rbegin() + 3, nVec.rbegin() + 8, back_inserter(nList));
+	return;
+}
+
+void Exercise10_42()
+{
+	list<int> nList = { 2, 2, 1, 2, 5, 7, 7, 8, 7, 10 };
+	for (auto i : nList)
+	{
+		cout << i << endl;
+	}
+	nList.sort();
+	for (auto i : nList)
+	{
+		cout << i << endl;
+	}
+	nList.unique();
+	for (auto i : nList)
+	{
+		cout << i << endl;
 	}
 }

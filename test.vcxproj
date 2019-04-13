@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Chapter10.cpp" />
+    <ClCompile Include="Chapter11.cpp" />
     <ClCompile Include="Chapter9.cpp" />
     <ClCompile Include="Chapter8.cpp" />
     <ClCompile Include="fact.cpp" />
@@ -90,11 +91,13 @@
   <ItemGroup>
     <ClInclude Include="Book.h" />
     <ClInclude Include="Chapter10.h" />
+    <ClInclude Include="Chapter11.h" />
     <ClInclude Include="Chapter6.h" />
     <ClInclude Include="Chapter8.h" />
     <ClInclude Include="Chapter9.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Sales_data.h" />
+    <ClInclude Include="Sales_item.h" />
     <ClInclude Include="Screen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
