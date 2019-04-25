@@ -42,6 +42,18 @@
     <ClCompile Include="Chapter11.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="StrBlob.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Chapter12.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TextQuery.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Book.h">
@@ -72,6 +84,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Chapter11.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StrBlob.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Chapter12.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TextQuery.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

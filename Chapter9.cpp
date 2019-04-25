@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Chapter9.h"
 
 bool Exercise9_4(vecint::const_iterator begin, vecint::const_iterator end, int val)

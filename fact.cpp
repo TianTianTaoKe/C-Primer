@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Chapter6.h"
 
 int fact(int a)

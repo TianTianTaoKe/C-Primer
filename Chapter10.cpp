@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Chapter10.h"
 #include "Sales_item.h"
 void Exercise10_1()

@@ -1,28 +1,21 @@
-#include <iostream>
-#include <string>
-#include <vector>
+#include "stdafx.h"
+
 #include "Chapter6.h"
 #include "Chapter8.h"
 #include "Chapter9.h"
 #include "Chapter10.h"
 #include "Chapter11.h"
+#include "Chapter12.h"
 #include "Screen.h"
-#include <fstream>
-#include <sstream>
-#include <math.h>
-#include <map>
 
-#define NDEBUG
-using std::cin;
-using std::cout;
-using std::endl;
-using std::string;
+
 using std::vector;
 using std::initializer_list;
 using std::ifstream;
 using std::ofstream;
 using std::istringstream;
 using std::ostringstream;
+using std::pair;
 
 typedef vector<string> vecstr;
 
@@ -105,23 +98,8 @@ B::B(const B& rhs)
 
 int main(int argc, char * argv[])
 {
-	Exercise11_4();
-
-	union
-	{
-		struct 
-		{
-			int a : 7;
-			int b : 3;
-		};
-		int c;
-	}aa;
-
-	aa.c = 0;
-	aa.b = 7;
-
-	cout << aa.c << endl;
-
+	Exercise12_27();
+	
 	system("pause");
 }
 

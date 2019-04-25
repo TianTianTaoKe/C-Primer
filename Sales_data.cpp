@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Sales_data.h"
 
 Sales_data::Sales_data(const std::string &book, const unsigned num, const double sellp, const double salep)

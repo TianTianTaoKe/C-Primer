@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Chapter8.h"
 
 //8.13
