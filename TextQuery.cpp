@@ -12,18 +12,24 @@ TextQuery::TextQuery(ifstream & ifile)
 		istringstream strStream(strLine);
 		while (strStream >> strWord)
 		{
-			wm[strWord].insert(iLine);
+			shared_ptr<set<int> > &lines = wm[strWord];
+			if (!lines)
+			{
+				lines.reset(new set<int>);
+			}
+			lines->insert(iLine);
 		}
 	}
 }
 
-TextQueryResult TextQuery::query(const string& sought)
+TextQueryResult TextQuery::query(const string& sought) const
 {
-	TextQueryResult queryResult;
-	queryResult.sought = sought;
+	static shared_ptr<set<int> >nodata(new set<int>);
+	map<string, shared_ptr<set<int> > >::const_iterator isPos = wm.find(sought);
 	if (wm.find(sought) != wm.end())
 	{
-		queryResult.lines = wm[sought];
+		return TextQueryResult(sought, isPos->second);
 	}
-	return queryResult;
+	else
+		return TextQueryResult(sought, nodata);
 }

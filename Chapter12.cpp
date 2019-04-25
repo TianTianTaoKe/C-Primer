@@ -268,11 +268,11 @@ void Exercise12_26()
 
 void Exercise12_27()
 {
-	ifstream ifile("E:\\ДњТы\\C-Primer\\Debug\\123.txt", ifstream::in);
+	ifstream ifile("E:\\code\\Test\\Debug\\123.txt", ifstream::in);
 	TextQuery textQuery(ifile);
 	TextQueryResult queryResult = textQuery.query("the");
 	cout << queryResult.sought << " ";
-	for (const auto& i : queryResult.lines)
+	for (const auto& i : *queryResult.lines)
 	{
 		cout << i << " ";
 	}
