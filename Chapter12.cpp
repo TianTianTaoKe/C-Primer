@@ -272,9 +272,78 @@ void Exercise12_27()
 	TextQuery textQuery(ifile);
 	TextQueryResult queryResult = textQuery.query("the");
 	cout << queryResult.sought << " ";
-	for (const auto& i:queryResult.lines)
+	for (const auto& i : queryResult.lines)
 	{
 		cout << i << " ";
 	}
 	cout << endl;
+}
+
+typedef map<string, set<int> > strToSetInt;
+
+bool is_space_line(const string& strLine)
+{
+	bool is_space = true;
+	for (auto &c:strLine)
+	{
+		if (!isspace(c))
+			is_space = false;
+	}
+	return is_space;
+}
+
+void read_text(ifstream &ifile,strToSetInt& wm)
+{
+	int iLine = 0;
+	string strLine;
+	vector <string> strLineVec;
+	while (getline(ifile, strLine))
+	{
+		if (is_space_line(strLine))
+			continue;
+		strLineVec.push_back(strLine);
+		++iLine;
+		string strWord;
+		istringstream strStream(strLine);
+		while (strStream >> strWord)
+		{
+			wm[strWord].insert(iLine);
+		}
+	}
+}
+
+void query_print(const string &str, strToSetInt &wm,ostream &os)
+{
+	set<int> lines;
+	if (wm.find(str) != wm.end())
+	{
+		lines = wm[str];
+	}
+
+	os << str << " ";
+	for (const auto& i : lines)
+	{
+		os << i << " ";
+	}
+	os << endl;
+}
+
+void Exercise12_28()
+{
+	ifstream ifile("E:\\code\\Test\\Debug\\123.txt", ifstream::in);
+	if (!ifile)
+	{
+		cout << "文件打开失败" << endl;
+		return;
+	}
+	strToSetInt wm;
+	read_text(ifile, wm);
+	do
+	{
+		cout << "请输入要查找的单词:" << endl;
+		string str;
+		if (!(cin >> str) || str == "q")
+			break;
+		query_print(str, wm, cout);
+	} while (true);
 }
