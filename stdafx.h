@@ -8,6 +8,7 @@
 #include <cstring>
 #include <set>
 #include <map>
+#include <vector>
 
 using std::cout;
 using std::cin;
@@ -25,3 +26,4 @@ using std::weak_ptr;
 using std::set;
 using std::map;
 using std::ostream;
+using std::vector;

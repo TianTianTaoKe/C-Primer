@@ -7,6 +7,7 @@ TextQuery::TextQuery(ifstream & ifile)
 	string strLine;
 	while (getline(ifile, strLine))
 	{
+		file->push_back(strLine);
 		++iLine;
 		string strWord;
 		istringstream strStream(strLine);
@@ -28,8 +29,8 @@ TextQueryResult TextQuery::query(const string& sought) const
 	map<string, shared_ptr<set<int> > >::const_iterator isPos = wm.find(sought);
 	if (wm.find(sought) != wm.end())
 	{
-		return TextQueryResult(sought, isPos->second);
+		return TextQueryResult(sought, isPos->second,file);
 	}
 	else
-		return TextQueryResult(sought, nodata);
+		return TextQueryResult(sought, nodata,file);
 }
