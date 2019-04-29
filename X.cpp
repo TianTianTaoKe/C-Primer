@@ -215,3 +215,123 @@ Folder& Folder::operator=(const Folder& rhs)
 	add_to_Message(rhs);
 	return *this;
 }
+
+//StrVec------------------------------------------------------
+allocator<string> StrVec::alloc;
+void StrVec::push_back(const string& s)
+{
+	chk_n_alloc();
+	alloc.construct(first_free++, s);
+}
+
+pair<string*, string*> StrVec::alloc_n_copy(const string *b,const string *e)
+{
+	auto date = alloc.allocate(e - b);
+	return{ date, uninitialized_copy(b, e, date) };
+}
+
+void StrVec::free()
+{
+	if (element)
+	{
+		for (auto p = first_free; p != element;)
+		{
+			alloc.destroy(--p);
+		}
+	}
+	alloc.deallocate(element, cap - element);
+}
+
+StrVec::StrVec(const StrVec& s)
+{
+	auto data = alloc_n_copy(s.begin(), s.end());
+	element = data.first;
+	first_free = cap = data.second;
+}
+
+StrVec::~StrVec()
+{
+	free();
+}
+
+StrVec& StrVec::operator=(const StrVec& s)
+{
+	auto data = alloc_n_copy(s.begin(), s.end());
+	free();
+	element = data.first;
+	first_free = cap =data.second;
+	return *this;
+}
+
+void StrVec::reallocate()
+{
+	auto newcapacity = size() ? 2 * size() : 1;
+
+	auto newdata = alloc.allocate(newcapacity);
+
+	auto dest = newdata;
+	auto elem = element;
+
+	for (size_t i = 0; i != size(); ++i)
+	{
+		alloc.construct(dest++, std::move(*elem++));
+	}
+	free();
+	element = newdata;
+	first_free = dest;
+	cap = element + newcapacity;
+}
+
+void StrVec::reallocate(size_t newcapacity)
+{
+	auto newdata = alloc.allocate(newcapacity);
+
+	auto dest = newdata;
+	auto elem = element;
+
+	for (size_t i = 0; i != size(); ++i)
+	{
+		alloc.construct(dest++, std::move(*elem++));
+	}
+	free();
+	element = newdata;
+	first_free = dest;
+	cap = element + newcapacity;
+}
+
+void StrVec::reserve(size_t n)
+{
+	if (n>capacity())
+	{
+		reallocate(n);
+	}
+}
+
+void StrVec::resize(size_t n)
+{
+	if (n>size())
+	{
+		while (size() < n)
+		{
+			push_back("");
+		}
+	}
+	else if (n < size())
+	{
+		while (size() > n)
+		{
+			alloc.destroy(--first_free);
+		}
+	}
+}
+
+void StrVec::resize(size_t n,const string& s)
+{
+	if (n > size())
+	{
+		while (size() < n)
+		{
+			push_back(s);
+		}
+	}
+}

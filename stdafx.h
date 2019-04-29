@@ -10,6 +10,9 @@
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <memory>
+#include <utility>
+#include <initializer_list>
 
 using std::cout;
 using std::cin;
@@ -29,3 +32,6 @@ using std::map;
 using std::ostream;
 using std::vector;
 using std::to_string;
+using std::allocator;
+using std::pair;
+using std::initializer_list;

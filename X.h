@@ -127,3 +127,42 @@ private:
 	void add_to_Message(const Folder&);
 	void remove_from_Message();
 };
+
+class StrVec
+{
+public:
+	StrVec():
+		element(nullptr), first_free(nullptr), cap(nullptr){}
+	StrVec(initializer_list<string> li);
+	StrVec(const StrVec&);
+	StrVec& operator=(const StrVec&);
+	~StrVec();
+	void push_back(const string&);
+	size_t size() const{ return first_free - element; }
+	size_t capacity() const{ return cap - element; }
+	string* begin() const{ return element; }
+	string* end() const{ return first_free; }
+	void reserve(size_t n);
+	void resize(size_t n);
+	void resize(size_t n, const string &);
+protected:
+private:
+	string *element;
+	string *first_free;
+	string *cap;
+	static allocator<string> alloc;
+
+	void chk_n_alloc(){ if (size() == capacity()) reallocate(); }
+	pair<string*, string*> alloc_n_copy(const string*, const string*);
+	void free();
+	void reallocate();
+	void reallocate(size_t newcapacity);
+};
+
+inline
+StrVec::StrVec(initializer_list<string> il)
+{
+	auto newdata = alloc_n_copy(il.begin(), il.end());
+	element = newdata.first;
+	first_free = cap = newdata.second;
+}

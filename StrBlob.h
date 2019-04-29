@@ -4,13 +4,11 @@
 #include <memory>
 #include <vector>
 #include <string>
-#include <initializer_list>
 #include <stdexcept>
 
 using std::shared_ptr;
 using std::vector;
 using std::string;
-using std::initializer_list;
 using std::shared_ptr;
 
 class StrBlobPtr;
