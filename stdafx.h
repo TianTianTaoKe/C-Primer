@@ -9,6 +9,7 @@
 #include <set>
 #include <map>
 #include <vector>
+#include <algorithm>
 
 using std::cout;
 using std::cin;
@@ -27,3 +28,4 @@ using std::set;
 using std::map;
 using std::ostream;
 using std::vector;
+using std::to_string;

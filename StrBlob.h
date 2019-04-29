@@ -21,6 +21,8 @@ public:
 	typedef vector<string>::size_type size_type;
 	StrBlob();
 	StrBlob(initializer_list<string> il);
+	StrBlob(const StrBlob&);
+	StrBlob& operator=(const StrBlob&);
 	size_type size() const { return data->size(); }
 	bool empty() const { return data->empty(); }
 	//添加和删除元素
@@ -43,6 +45,19 @@ private:
 	//如果data[i]不合法，抛出异常
 	void check(size_type i, const string& msg) const;
 };
+
+inline
+StrBlob::StrBlob(const StrBlob& s) :data(make_shared<vector<string> >(*s.data))
+{
+
+}
+
+inline
+StrBlob& StrBlob::operator=(const StrBlob& rhs)
+{
+	data = make_shared<vector<string> >(*rhs.data);
+	return *this;
+}
 
 class StrBlobPtr
 {

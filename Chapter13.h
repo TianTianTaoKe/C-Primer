@@ -9,3 +9,9 @@ void Exercise13_17();
 void Exercise13_18();
 
 void Exercise13_22();
+
+void Exercise13_28();
+
+void Exercise13_30();
+
+void Exercise13_31();

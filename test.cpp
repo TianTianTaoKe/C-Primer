@@ -99,8 +99,7 @@ B::B(const B& rhs)
 
 int main(int argc, char * argv[])
 {
-	Exercise13_22();
-
+	Exercise13_31();
 	
 	system("pause");
 }

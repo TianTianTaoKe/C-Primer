@@ -84,3 +84,54 @@ void Exercise13_22()
 	cout << *h2 << endl;
 	cout << *h3 << endl;
 }
+
+void create_tree(TreeNode* tn,int i,const char LOrR)
+{
+	if (i > 2)
+	{
+		return;
+	}
+	tn->value = string(i, LOrR);
+	tn->left = new TreeNode;
+	tn->right = new TreeNode;
+	++i;
+	create_tree(tn->left, i, 'l');
+	create_tree(tn->right, i, 'r');
+}
+
+void Exercise13_28()
+{
+	BinStrTree bst;
+	bst.root = new TreeNode;
+	bst.root->value = "0";
+	create_tree(bst.root, 0, 0);
+}
+
+void Exercise13_30()
+{
+	HasPtr h("111!!!");
+	HasPtr h2("222!!!");
+	swap(h, h2);
+	cout << *h << endl;
+	cout << *h2 << endl;
+}
+
+void Exercise13_31()
+{
+	vector<HasPtr> vecHP;
+	for (int i = 0; i < 20;i++)
+	{
+		vecHP.push_back(to_string(20 - i));
+	}
+	for (auto hp:vecHP)
+	{
+		cout << *hp << " ";
+	}
+	cout << endl;
+	sort(vecHP.begin(),vecHP.end());
+	for (auto hp : vecHP)
+	{
+		cout << *hp << " ";
+	}
+	cout << endl;
+}

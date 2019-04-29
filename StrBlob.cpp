@@ -44,3 +44,5 @@ void StrBlob::pop_back()
 	check(0, "pop_back on empty StrBlob");
 	data->pop_back();
 }
+
+
