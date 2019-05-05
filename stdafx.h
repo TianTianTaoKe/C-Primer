@@ -35,3 +35,4 @@ using std::to_string;
 using std::allocator;
 using std::pair;
 using std::initializer_list;
+using std::uninitialized_copy;

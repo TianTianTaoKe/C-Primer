@@ -268,7 +268,7 @@ void Exercise12_26()
 
 void Exercise12_27()
 {
-	ifstream ifile("E:\\code\\Test\\Debug\\123.txt", ifstream::in);
+	ifstream ifile("123.txt", ifstream::in);
 	TextQuery textQuery(ifile);
 	TextQueryResult queryResult = textQuery.query("the");
 	cout << queryResult.sought << " ";

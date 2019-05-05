@@ -135,3 +135,38 @@ void Exercise13_31()
 	}
 	cout << endl;
 }
+
+void Exercise13_44()
+{
+	MyString str1;
+	MyString str2("123");
+	MyString str3;
+	str3 = 'a';
+	MyString str4;
+	str4 = { '5', '6', '7' };
+	cout << str1 << endl;
+	cout << str2 << endl;
+	cout << str3 << endl;
+	cout << str4 << endl;
+}
+
+void Exercise13_47()
+{
+	MyString str1;
+	MyString str2("123");
+	MyString str3;
+	str3 = 'a';
+	MyString str4;
+	str4 = { '5', '6', '7' };
+	cout << str1 << endl;
+	cout << str2 << endl;
+	cout << str3 << endl;
+	cout << str4 << endl;
+
+	vector<MyString> vs;
+	vs.reserve(10);
+	vs.push_back(str2);
+	vs.push_back(MyString("qqq"));
+	vs.push_back("www");
+	vs.push_back("www");
+}

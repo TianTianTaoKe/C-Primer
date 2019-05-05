@@ -234,10 +234,11 @@ void StrVec::free()
 {
 	if (element)
 	{
-		for (auto p = first_free; p != element;)
-		{
-			alloc.destroy(--p);
-		}
+		//for (auto p = first_free; p != element;)
+		//{
+		//	alloc.destroy(--p);
+		//}
+		for_each(element, first_free, [](string &s){alloc.destroy(&s); });
 	}
 	alloc.deallocate(element, cap - element);
 }
@@ -334,4 +335,78 @@ void StrVec::resize(size_t n,const string& s)
 			push_back(s);
 		}
 	}
+}
+
+//MyString------------------------------------------------------
+allocator<char> MyString::a;
+
+MyString & MyString::operator=(const MyString &rhs)
+{
+	cout << "¿½±´¸³Öµ" << endl;
+	char* newp = a.allocate(rhs.sz);
+	uninitialized_copy(rhs.p, rhs.p + rhs.sz, newp);
+	if (p)
+	{
+		a.deallocate(p, sz);
+	}
+	p = newp;
+	sz = rhs.sz;
+
+	return *this;
+}
+
+MyString & MyString::operator=(const char *cp)
+{
+	if (p)
+	{
+		a.deallocate(p, sz);
+	}
+	p = a.allocate(sz = strlen(cp));
+	uninitialized_copy(cp, cp + sz, p);
+
+	return *this;
+}
+
+MyString & MyString::operator=(const char c)
+{
+	if (p)
+	{
+		a.deallocate(p, sz);
+	}
+
+	p = a.allocate(sz = 1);
+
+	*p = c;
+
+	return *this;
+}
+
+MyString & MyString::operator=(initializer_list<char> il)
+{
+	if (p)
+	{
+		a.deallocate(p, sz);
+	}
+
+	p = a.allocate(sz = il.size());
+
+	uninitialized_copy(il.begin(), il.end(), p);
+
+	return *this;
+}
+
+ostream & print(ostream& os, MyString& s)
+{
+	auto p = s.begin();
+	for (auto p = s.begin(); p != s.end();++p)
+	{
+		os << *p;
+	}
+
+	return os;
+}
+
+ostream & operator<<(ostream& os,MyString& s)
+{
+	return print(os, s);
 }

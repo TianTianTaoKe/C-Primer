@@ -166,3 +166,48 @@ StrVec::StrVec(initializer_list<string> il)
 	element = newdata.first;
 	first_free = cap = newdata.second;
 }
+
+class MyString
+{
+	friend ostream& operator<<(ostream&, MyString&);
+	friend ostream& print(ostream&, MyString&);
+public:
+	MyString() :sz(0), p(nullptr){}
+	MyString(const char* cp):
+		sz(strlen(cp)), p(a.allocate(sz))
+	{ 
+		uninitialized_copy(cp, cp + sz, p);
+	}
+	MyString(const MyString&s) :
+		sz(s.sz), p(a.allocate(s.sz))
+	{
+		cout << "¿½±´¹¹Ôì" << endl;
+		uninitialized_copy(s.p, s.p + sz, p);
+	}
+
+	MyString& operator=(const MyString&);
+
+	~MyString() throw()
+	{
+		if (p)
+		{
+			a.deallocate(p, sz);
+		}
+	}
+
+	MyString& operator=(const char*);
+	MyString& operator=(const char);
+	MyString& operator=(initializer_list<char>);
+
+	const char* begin() { return p; }
+	const char* begin() const { return p; }
+	const char* end(){ return p + sz; }
+	const char* end() const { return p + sz; }
+
+	size_t size() const { return sz; }
+protected:
+private:
+	size_t sz;
+	char* p;
+	static allocator<char> a;
+};

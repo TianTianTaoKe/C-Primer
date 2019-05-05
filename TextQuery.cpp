@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TextQuery.h"
 
-TextQuery::TextQuery(ifstream & ifile)
+TextQuery::TextQuery(ifstream & ifile) :file(new StrVec )
 {
 	int iLine = 0;
 	string strLine;
