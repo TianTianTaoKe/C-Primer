@@ -25,6 +25,7 @@ public:
 	bool empty() const { return data->empty(); }
 	//添加和删除元素
 	void push_back(const string &str) { data->push_back(str); }
+	void push_back(string && str) { data->push_back(std::move(str)); }
 	void pop_back();
 	//访问元素
 	string& front();

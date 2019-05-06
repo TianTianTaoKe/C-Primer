@@ -27,6 +27,24 @@ HasPtr& HasPtr::operator=(const HasPtr& rhs)
 	return *this;
 }
 
+HasPtr& HasPtr::operator=(HasPtr && rhs)
+{
+	if (this != &rhs)
+	{
+		if (--*use == 0)
+		{
+			delete use;
+			delete ps;
+		}
+		ps = rhs.ps;
+		i = rhs.i;
+		use = rhs.use;
+		rhs.ps = nullptr;
+		rhs.i = 0;
+	}
+	return *this;
+}
+
 HasPtr& HasPtr::operator=(const string& rhs)
 {
 	*ps = rhs;
@@ -131,12 +149,28 @@ Message::Message(const Message& m) :content(m.content), folders(m.folders)
 	add_to_Folders(m);
 }
 
+Message::Message(Message &&m) : content(std::move(m.content))
+{
+	move_Folders(&m);
+}
+
 Message& Message::operator=(const Message& rhs)
 {
 	remove_from_Folders();
 	content = rhs.content;
 	folders = rhs.folders;
 	add_to_Folders(rhs);
+	return *this;
+}
+
+Message& Message::operator=(Message&& rhs)
+{
+	if (this != &rhs)
+	{
+		remove_from_Folders();
+		content = std::move(rhs.content);
+		move_Folders(&rhs);
+	}
 	return *this;
 }
 
@@ -155,6 +189,17 @@ void Message::remove(Folder& f)
 {
 	folders.erase(&f);
 	f.remMsg(this);
+}
+
+void Message::move_Folders(Message* m)
+{
+	folders = std::move(m->folders);
+	for (auto f : folders)
+	{
+		f->remMsg(m);
+		f->addMsg(this);
+	}
+	m->folders.clear();
 }
 
 void swap(Message &lhs, Message&rhs)
@@ -355,6 +400,22 @@ MyString & MyString::operator=(const MyString &rhs)
 	return *this;
 }
 
+MyString & MyString::operator=(MyString && rhs)
+{
+	if (this != &rhs)
+	{
+		if (p)
+		{
+			a.deallocate(p, sz);
+		}
+		p = rhs.p;
+		sz = rhs.sz;
+		rhs.p = nullptr;
+		rhs.sz = 0;
+	}
+	return *this;
+}
+
 MyString & MyString::operator=(const char *cp)
 {
 	if (p)
@@ -410,3 +471,17 @@ ostream & operator<<(ostream& os,MyString& s)
 {
 	return print(os, s);
 }
+
+//Foo------------------------------------------------------------------
+//Foo Foo::sorted() &&
+//{
+//	cout << "右值引用" << endl;
+//	sort(data.begin(), data.end());
+//	return *this;
+//}
+//
+//Foo Foo::sorted() const &
+//{
+//	cout << "左值引用" << endl;
+//	return Foo(*this).sorted();
+//}

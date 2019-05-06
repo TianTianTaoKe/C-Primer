@@ -23,7 +23,7 @@ private:
 	string name;
 	int mysn;
 };
-
+//HasPtr----------------------------------------------------------------------------------
 class HasPtr
 {
 public:
@@ -34,7 +34,13 @@ public:
 		++*use;
 	}
 	HasPtr& operator=(const HasPtr&);
+	HasPtr& operator=(HasPtr&&);
 	HasPtr& operator=(const string&);
+	//HasPtr& operator=(HasPtr rhs)
+	//{
+	//	swap(*this, rhs);
+	//	return *this;
+	//}
 	string & operator*();
 	bool operator<(const HasPtr&) const;
 	~HasPtr();
@@ -55,7 +61,7 @@ void swap(HasPtr& lhs, HasPtr& rhs)
 	swap(lhs.ps, rhs.ps);
 	swap(lhs.i, rhs.i);
 }
-
+//TreeNode-------------------------------------------------------------------------------
 class TreeNode
 {
 public:
@@ -96,7 +102,9 @@ class Message
 public:
 	explicit Message(const string& s = "") :content(s){}
 	Message(const Message&);
+	Message(Message &&);	
 	Message& operator=(const Message&);
+	Message& operator =(Message &&);
 	~Message();
 
 	void save(Folder&);
@@ -109,6 +117,7 @@ private:
 	string content;
 	set<Folder* >folders;
 	void add_to_Folders(const Message&);
+	void move_Folders(Message*);
 	void remove_from_Folders();
 };
 
@@ -135,7 +144,9 @@ public:
 		element(nullptr), first_free(nullptr), cap(nullptr){}
 	StrVec(initializer_list<string> li);
 	StrVec(const StrVec&);
+	StrVec(StrVec&&) throw();
 	StrVec& operator=(const StrVec&);
+	StrVec& operator=(StrVec &&)throw();
 	~StrVec();
 	void push_back(const string&);
 	size_t size() const{ return first_free - element; }
@@ -167,6 +178,29 @@ StrVec::StrVec(initializer_list<string> il)
 	first_free = cap = newdata.second;
 }
 
+inline
+StrVec::StrVec(StrVec &&s) throw() :
+element(s.element), first_free(s.first_free), cap(s.cap)
+{
+	s.element = s.first_free = s.cap = nullptr;
+}
+
+inline
+StrVec& StrVec::operator=(StrVec && rhs)
+{
+	if (this != &rhs)
+	{
+		free();
+		element = rhs.element;
+		first_free = rhs.first_free;
+		cap = rhs.cap;
+
+		rhs.element = rhs.first_free = rhs.cap = nullptr;
+	}
+
+	return *this;
+}
+
 class MyString
 {
 	friend ostream& operator<<(ostream&, MyString&);
@@ -184,8 +218,16 @@ public:
 		cout << "拷贝构造" << endl;
 		uninitialized_copy(s.p, s.p + sz, p);
 	}
+	MyString(MyString &&s) throw() : sz(s.sz), p(s.p)
+	{
+		cout << "移动构造" << endl;
+		s.p = nullptr;
+		s.sz = 0;
+	}
 
 	MyString& operator=(const MyString&);
+
+	MyString& operator=(MyString&&);
 
 	~MyString() throw()
 	{
@@ -211,3 +253,14 @@ private:
 	char* p;
 	static allocator<char> a;
 };
+
+//Foo-------------------------------------------------------------------------------
+//class Foo
+//{
+//public:
+//	Foo sorted() && ;
+//	Foo sorted() const &;
+//protected:
+//private:
+//	vector <int> data;
+//};

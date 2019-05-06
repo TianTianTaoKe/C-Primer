@@ -166,7 +166,15 @@ void Exercise13_47()
 	vector<MyString> vs;
 	vs.reserve(10);
 	vs.push_back(str2);
-	vs.push_back(MyString("qqq"));
+	vs.push_back(std::move(str2));
+	vs.push_back(MyString("www"));
 	vs.push_back("www");
-	vs.push_back("www");
+}
+
+void Exercise13_54()
+{
+	HasPtr hp1;
+	HasPtr hp2;
+	hp2 = hp1;
+	hp2 = std::move(hp2);
 }
