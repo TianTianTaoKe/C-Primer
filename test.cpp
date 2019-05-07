@@ -7,6 +7,7 @@
 #include "Chapter11.h"
 #include "Chapter12.h"
 #include "Chapter13.h"
+#include "Chapter14.h"
 #include "Screen.h"
 
 
@@ -99,7 +100,7 @@ B::B(const B& rhs)
 
 int main(int argc, char * argv[])
 {
-	Exercise13_54();
+	Exercise14_9();
 	
 	system("pause");
 }

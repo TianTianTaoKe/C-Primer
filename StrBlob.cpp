@@ -33,6 +33,36 @@ string & StrBlob::back()
 	return data->back();
 }
 
+bool operator==(const StrBlob& lhs, const StrBlob& rhs)
+{
+	return *lhs.data == *rhs.data;
+}
+
+bool operator!=(const StrBlob& lhs, const StrBlob& rhs)
+{
+	return !(lhs == rhs);
+}
+
+bool operator<(const StrBlob& lhs, const StrBlob& rhs)
+{
+	return *lhs.data < *rhs.data;
+}
+
+bool operator<=(const StrBlob& lhs, const StrBlob& rhs)
+{
+	return *lhs.data <= *rhs.data;
+}
+
+bool operator>(const StrBlob& lhs, const StrBlob& rhs)
+{
+	return *lhs.data > *rhs.data;
+}
+
+bool operator>=(const StrBlob& lhs, const StrBlob& rhs)
+{
+	return *lhs.data >= *rhs.data;
+}
+
 const string & StrBlob::back() const
 {
 	check(0, "back on empty StrBlob");
@@ -45,4 +75,128 @@ void StrBlob::pop_back()
 	data->pop_back();
 }
 
+bool operator==(const StrBlobPtr& lhs, const StrBlobPtr& rhs)
+{
+	auto l = lhs.wptr.lock();
+	auto r = rhs.wptr.lock();
+	if (l == r)
+	{
+		return (!r || lhs.curr == rhs.curr);
+	}
+	else
+		return false;
+}
 
+bool operator!=(const StrBlobPtr& lhs, const StrBlobPtr& rhs)
+{
+	return !(lhs == rhs);
+}
+
+bool operator<(const StrBlobPtr& lhs, const StrBlobPtr& rhs)
+{
+	auto l = lhs.wptr.lock();
+	auto r = rhs.wptr.lock();
+	if (l == r)
+	{
+		if (!r)
+		{
+			return false;
+		}
+		return lhs.curr < lhs.curr;
+	}
+	else
+		return false;
+}
+
+bool operator<=(const StrBlobPtr& lhs, const StrBlobPtr& rhs)
+{
+	auto l = lhs.wptr.lock();
+	auto r = rhs.wptr.lock();
+	if (l == r)
+	{
+		return (!r || lhs.curr <= rhs.curr);
+	}
+	else
+		return false;
+}
+
+bool operator>(const StrBlobPtr& lhs, const StrBlobPtr& rhs)
+{
+	auto l = lhs.wptr.lock();
+	auto r = rhs.wptr.lock();
+	if (l == r)
+	{
+		if (!r)
+		{
+			return false;
+		}
+		return lhs.curr > lhs.curr;
+	}
+	else
+		return false;
+}
+
+bool operator>=(const StrBlobPtr& lhs, const StrBlobPtr& rhs)
+{
+	auto l = lhs.wptr.lock();
+	auto r = rhs.wptr.lock();
+	if (l == r)
+	{
+		return (!r || lhs.curr >= rhs.curr);
+	}
+	else
+		return false;
+}
+
+StrBlobPtr& StrBlobPtr::operator++()
+{
+	check(curr, "increment past end of StrBlobPtr");
+	++curr;
+	return *this;
+}
+
+StrBlobPtr& StrBlobPtr::operator--()
+{
+	--curr;
+	check(curr, "increment past begin of StrBlobPtr");	
+	return *this;
+}
+
+StrBlobPtr StrBlobPtr::operator++(int)
+{
+	StrBlobPtr ret = *this;
+	++(*this);
+	return ret;
+}
+
+StrBlobPtr StrBlobPtr::operator--(int)
+{
+	StrBlobPtr ret = *this;
+	--(*this);
+	return ret;
+}
+
+StrBlobPtr StrBlobPtr::operator+(int n)
+{
+	StrBlobPtr ret = *this;
+	ret.curr += n;
+	return ret;
+}
+
+StrBlobPtr StrBlobPtr::operator-(int n)
+{
+	StrBlobPtr ret = *this;
+	ret.curr -= n;
+	return ret;
+}
+
+string& StrBlobPtr::operator*() const
+{
+	auto p = check(curr, "dereference past end");
+	return (*p)[curr];
+}
+
+string* StrBlobPtr::operator->() const
+{
+	return &(this->operator*());
+}

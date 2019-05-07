@@ -29,6 +29,7 @@ using std::unique_ptr;
 using std::weak_ptr;
 using std::set;
 using std::map;
+using std::istream;
 using std::ostream;
 using std::vector;
 using std::to_string;

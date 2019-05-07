@@ -4,6 +4,13 @@
 
 class Sales_data
 {
+	friend std::istream & read(std::istream &, Sales_data&);
+	friend std::ostream & print(std::ostream&, const Sales_data&);
+	friend Sales_data add(const Sales_data&, const Sales_data&);
+	friend ostream& operator<<(ostream &, const Sales_data&);
+	friend istream& operator>>(istream &, Sales_data&);
+	friend Sales_data operator+(const Sales_data&, const Sales_data&);
+	friend Sales_data operator-(const Sales_data&, const Sales_data&);
 public:
 	Sales_data(const std::string &book) :Sales_data(book,0,0,0){}
 	Sales_data(const std::string &book, const unsigned num, const double sellp, const double salep);
@@ -13,16 +20,17 @@ public:
 	std::string isbn() const { return bookNo; }
 	Sales_data& combine(const Sales_data&);
 	double avg_price()const;
+	Sales_data& operator+=(const Sales_data&);
+	Sales_data& operator-=(const Sales_data&);
+	Sales_data& operator=(const string & isbn);
 private:
 	std::string bookNo;			//书籍编号
 	unsigned units_sold = 0;	//销售量
 	double sellingPrice = 0.0;	//原始价格
 	double salePrice = 0.0;		//实售价格
 	double discount = 0.0;		//折扣
+	double revenue = 0.0;
 
-	friend std::istream & read(std::istream &, Sales_data&);
-	friend std::ostream & print(std::ostream&, const Sales_data&);
-	friend Sales_data add(const Sales_data&, const Sales_data&);
 };
 
 inline Sales_data& Sales_data::combine( const Sales_data& rhs)

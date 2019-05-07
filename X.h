@@ -140,6 +140,12 @@ private:
 class StrVec
 {
 public:
+	friend bool operator==(const StrVec& lhs, const StrVec& rhs);
+	friend bool operator!=(const StrVec& lhs, const StrVec& rhs);
+	friend bool operator>(const StrVec& lhs, const StrVec& rhs);
+	friend bool operator>=(const StrVec& lhs, const StrVec& rhs);
+	friend bool operator<(const StrVec& lhs, const StrVec& rhs);
+	friend bool operator<=(const StrVec& lhs, const StrVec& rhs);
 	StrVec():
 		element(nullptr), first_free(nullptr), cap(nullptr){}
 	StrVec(initializer_list<string> li);
@@ -147,6 +153,9 @@ public:
 	StrVec(StrVec&&) throw();
 	StrVec& operator=(const StrVec&);
 	StrVec& operator=(StrVec &&)throw();
+	StrVec& operator=(initializer_list<string> il);
+	string& operator[](size_t n){ return element[n]; }
+	const string& operator[](size_t n) const{ return element[n]; }
 	~StrVec();
 	void push_back(const string&);
 	size_t size() const{ return first_free - element; }
@@ -205,6 +214,12 @@ class MyString
 {
 	friend ostream& operator<<(ostream&, MyString&);
 	friend ostream& print(ostream&, MyString&);
+	friend bool operator==(const MyString& lhs, const MyString& rhs);
+	friend bool operator!=(const MyString& lhs, const MyString& rhs);
+	friend bool operator<(const MyString& lhs, const MyString& rhs);
+	friend bool operator<=(const MyString& lhs, const MyString& rhs);
+	friend bool operator>(const MyString& lhs, const MyString& rhs);
+	friend bool operator>=(const MyString& lhs, const MyString& rhs);
 public:
 	MyString() :sz(0), p(nullptr){}
 	MyString(const char* cp):
@@ -240,6 +255,8 @@ public:
 	MyString& operator=(const char*);
 	MyString& operator=(const char);
 	MyString& operator=(initializer_list<char>);
+	char& operator[](size_t n){ return p[n]; }
+	const char& operator[](size_t n) const{ return p[n]; }
 
 	const char* begin() { return p; }
 	const char* begin() const { return p; }
@@ -264,3 +281,25 @@ private:
 //private:
 //	vector <int> data;
 //};
+
+//Date-----------------------------------------------------------------------------
+class Date
+{
+	friend ostream& operator<< (ostream&, const Date&);
+	friend istream& operator>> (istream&, Date&);
+	friend bool operator== (const Date& lhs, const Date& rhs);
+	friend bool operator!= (const Date& lhs, const Date& rhs);
+	friend bool operator< (const Date& lhs, const Date& rhs);
+	friend bool operator<= (const Date& lhs, const Date& rhs);
+	friend bool operator> (const Date& lhs, const Date& rhs);
+	friend bool operator>= (const Date& lhs, const Date& rhs);
+public:
+	Date(){}
+	Date(int y, int m, int d) :year(y), month(m), day(d){}
+	Date& operator=(const string & date);
+protected:
+private:
+	int year;
+	int month;
+	int day;
+};

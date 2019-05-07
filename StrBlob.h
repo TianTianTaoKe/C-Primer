@@ -15,12 +15,20 @@ class StrBlobPtr;
 class StrBlob
 {
 	friend class StrBlobPtr;
+	friend bool operator==(const StrBlob&, const StrBlob&);
+	friend bool operator!=(const StrBlob&, const StrBlob&);
+	friend bool operator<(const StrBlob&, const StrBlob&);
+	friend bool operator<=(const StrBlob&, const StrBlob&);
+	friend bool operator>(const StrBlob&, const StrBlob&);
+	friend bool operator>=(const StrBlob&, const StrBlob&);
 public:
 	typedef vector<string>::size_type size_type;
 	StrBlob();
 	StrBlob(initializer_list<string> il);
 	StrBlob(const StrBlob&);
 	StrBlob& operator=(const StrBlob&);
+	string& operator[](size_t n){ return (*data)[n]; }
+	const string& operator[](size_t n) const{ return (*data)[n]; }
 	size_type size() const { return data->size(); }
 	bool empty() const { return data->empty(); }
 	//Ìí¼ÓºÍÉ¾³ýÔªËØ
@@ -61,12 +69,33 @@ StrBlob& StrBlob::operator=(const StrBlob& rhs)
 class StrBlobPtr
 {
 	friend bool eq(const StrBlobPtr&, const StrBlobPtr&);
+	friend bool operator==(const StrBlobPtr&, const StrBlobPtr&);
+	friend bool operator!=(const StrBlobPtr&, const StrBlobPtr&);
+	friend bool operator<(const StrBlobPtr&, const StrBlobPtr&);
+	friend bool operator<=(const StrBlobPtr&, const StrBlobPtr&); 
+	friend bool operator>(const StrBlobPtr&, const StrBlobPtr&);
+	friend bool operator>=(const StrBlobPtr&, const StrBlobPtr&);
 public:
 	StrBlobPtr() : curr(0) {}
 	StrBlobPtr(StrBlob& a, size_t sz = 0) :wptr(a.data), curr(sz){}
 	StrBlobPtr(const StrBlob& a, size_t sz = 0) : wptr(a.data), curr(sz){}
 
-	const string& deref() const;
+	string& operator[](size_t n){ return (*wptr.lock())[n]; }
+	const string& operator[](size_t n) const{ return (*wptr.lock())[n]; }
+
+	StrBlobPtr& operator++();
+	StrBlobPtr& operator--();
+
+	StrBlobPtr operator++(int);
+	StrBlobPtr operator--(int);
+
+	StrBlobPtr operator+(int n);
+	StrBlobPtr operator-(int n);
+
+	string& operator*() const;
+	string* operator->() const;
+
+	string& deref() const;
 	StrBlobPtr& incr();
 	StrBlobPtr& decr();
 
@@ -75,13 +104,13 @@ public:
 	}
 
 private:
-	shared_ptr<const vector<string> > check(size_t, const string&) const;
+	shared_ptr<vector<string> > check(size_t, const string&) const;
 	weak_ptr<vector<string> > wptr;
 	size_t curr;
 };
 
 inline
-shared_ptr<const vector<string> >
+shared_ptr<vector<string> >
 StrBlobPtr::check(size_t i, const string& msg) const
 {
 	auto ret = wptr.lock();
@@ -97,7 +126,7 @@ StrBlobPtr::check(size_t i, const string& msg) const
 	return ret;
 }
 
-inline const string& StrBlobPtr::deref() const
+inline string& StrBlobPtr::deref() const
 {
 	auto p = check(curr, "dereference past end");
 	return (*p)[curr];
@@ -152,4 +181,13 @@ inline bool neq(const StrBlobPtr &lhs, const StrBlobPtr &rhs)
 {
 	return !eq(lhs, rhs);
 }
+
+class StrBlobPtrPtr
+{
+public:
+	string* operator->() const{ return ptr->operator->(); }
+protected:
+private:
+	StrBlobPtr *ptr;
+};
 #endif

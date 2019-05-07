@@ -309,6 +309,15 @@ StrVec& StrVec::operator=(const StrVec& s)
 	return *this;
 }
 
+StrVec& StrVec::operator=(initializer_list<string> il)
+{
+	auto data = alloc_n_copy(il.begin(), il.end());
+	free();
+	element = data.first;
+	first_free = cap = data.second;
+	return *this;
+}
+
 void StrVec::reallocate()
 {
 	auto newcapacity = size() ? 2 * size() : 1;
@@ -382,6 +391,100 @@ void StrVec::resize(size_t n,const string& s)
 	}
 }
 
+bool operator==(const StrVec& lhs, const StrVec& rhs)
+{
+	if (lhs.size() != rhs.size())
+	{
+		return false;
+	}
+	for (auto itr1 = lhs.begin(), itr2 = rhs.begin(); 
+			itr1 != lhs.end() && itr2 != rhs.end();++itr1,++itr2)
+	{
+		if (*itr1 != *itr2)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool operator!=(const StrVec& lhs, const StrVec& rhs)
+{
+	return !(lhs == rhs);
+}
+
+bool operator<(const StrVec& lhs, const StrVec& rhs)
+{
+	auto itr1 = lhs.begin(), itr2 = rhs.begin();
+	for (;itr1 != lhs.end() && itr2 != rhs.end(); ++itr1, ++itr2)
+	{
+		if (*itr1 < *itr2)
+			return true;
+		else if (*itr1 > *itr2)
+			return false;
+	}
+
+	if (itr1 == lhs.end() && itr2 != lhs.end())
+	{
+		return true;
+	}
+	return false;
+}
+
+bool operator<=(const StrVec& lhs, const StrVec& rhs)
+{
+	auto itr1 = lhs.begin(), itr2 = rhs.begin();
+	for (; itr1 != lhs.end() && itr2 != rhs.end(); ++itr1, ++itr2)
+	{
+		if (*itr1 < *itr2)
+			return true;
+		else if (*itr1 > *itr2)
+			return false;
+	}
+
+	if (itr1 == lhs.end())
+	{
+		return true;
+	}
+	return false;
+}
+
+bool operator>(const StrVec& lhs, const StrVec& rhs)
+{
+	auto itr1 = lhs.begin(), itr2 = rhs.begin();
+	for (; itr1 != lhs.end() && itr2 != rhs.end(); ++itr1, ++itr2)
+	{
+		if (*itr1 > *itr2)
+			return true;
+		else if (*itr1 < *itr2)
+			return false;
+	}
+
+	if (itr1 != lhs.end() && itr2 == lhs.end())
+	{
+		return true;
+	}
+	return false;
+}
+
+bool operator>=(const StrVec& lhs, const StrVec& rhs)
+{
+	auto itr1 = lhs.begin(), itr2 = rhs.begin();
+	for (; itr1 != lhs.end() && itr2 != rhs.end(); ++itr1, ++itr2)
+	{
+		if (*itr1 > *itr2)
+			return true;
+		else if (*itr1 < *itr2)
+			return false;
+	}
+
+	if (itr2 == lhs.end())
+	{
+		return true;
+	}
+	return false;
+}
 //MyString------------------------------------------------------
 allocator<char> MyString::a;
 
@@ -472,6 +575,37 @@ ostream & operator<<(ostream& os,MyString& s)
 	return print(os, s);
 }
 
+bool operator==(const MyString& lhs, const MyString& rhs)
+{
+	return strcmp(lhs.p, rhs.p) == 0;
+}
+
+bool operator!=(const MyString& lhs, const MyString& rhs)
+{
+	return !(lhs == rhs);
+}
+
+bool operator<(const MyString& lhs, const MyString& rhs)
+{
+	return strcmp(lhs.p, rhs.p) < 0;
+}
+
+bool operator<=(const MyString& lhs, const MyString& rhs)
+{
+	return strcmp(lhs.p, rhs.p) <= 0;
+}
+
+bool operator>(const MyString& lhs, const MyString& rhs)
+{
+	return strcmp(lhs.p, rhs.p) > 0;
+}
+
+bool operator>=(const MyString& lhs, const MyString& rhs)
+{
+	return strcmp(lhs.p, rhs.p) >= 0;
+}
+
+
 //Foo------------------------------------------------------------------
 //Foo Foo::sorted() &&
 //{
@@ -485,3 +619,114 @@ ostream & operator<<(ostream& os,MyString& s)
 //	cout << "×óÖµÒýÓÃ" << endl;
 //	return Foo(*this).sorted();
 //}
+
+//Date------------------------------------------------------------------
+Date& Date::operator=(const string &date)
+{
+	istringstream is(date);
+	char ch1, ch2;
+	is >> year >> ch1 >> month >> ch2 >> day;
+	if (!is || ch1 !='-' || ch2 != '-')
+	{
+		throw std::invalid_argument("Bad date");
+	}
+	if (month < 1 || month > 12 || day < 1 || day > 31)
+	{
+		throw std::invalid_argument("Bad date");
+	}
+	return *this;
+}
+
+ostream& operator<<(ostream& os, const Date& dt)
+{
+	const char sep = '\t';
+	os << "year:" << dt.year << sep << "month:" << dt.month << sep << "day:" << dt.day;
+	return os;
+}
+
+istream& operator>>(istream& is, Date& dt)
+{
+	is >> dt.year >> dt.month >> dt.day;
+	if (!is)
+	{
+		dt = Date(0, 0, 0);
+	}
+	return  is;
+}
+
+bool operator== (const Date& lhs, const Date& rhs)
+{
+	return lhs.year == rhs.year && lhs.month == rhs.month && lhs.day == rhs.day;
+}
+
+bool operator!= (const Date& lhs, const Date& rhs)
+{
+	return !(lhs == rhs);
+}
+
+bool operator< (const Date& lhs, const Date& rhs)
+{
+	if (lhs.year < rhs.year)
+		return true;
+	else if (lhs.year == rhs.year)
+	{
+		if (lhs.month < rhs.month)
+			return true;
+		else if (lhs.month == rhs.month)
+		{
+			if (lhs.day < rhs.day)
+				return true;
+		}
+	}
+	return false;
+}
+
+bool operator<= (const Date& lhs, const Date& rhs)
+{
+	if (lhs.year < rhs.year)
+		return true;
+	else if (lhs.year == rhs.year)
+	{
+		if (lhs.month < rhs.month)
+			return true;
+		else if (lhs.month == rhs.month)
+		{
+			if (lhs.day <= rhs.day)
+				return true;
+		}
+	}
+	return false;
+}
+bool operator> (const Date& lhs, const Date& rhs)
+{
+	if (lhs.year > rhs.year)
+		return true;
+	else if (lhs.year == rhs.year)
+	{
+		if (lhs.month > rhs.month)
+			return true;
+		else if (lhs.month == rhs.month)
+		{
+			if (lhs.day > rhs.day)
+				return true;
+		}
+	}
+	return false;
+}
+
+bool operator>= (const Date& lhs, const Date& rhs)
+{
+	if (lhs.year > rhs.year)
+		return true;
+	else if (lhs.year == rhs.year)
+	{
+		if (lhs.month > rhs.month)
+			return true;
+		else if (lhs.month == rhs.month)
+		{
+			if (lhs.day >= rhs.day)
+				return true;
+		}
+	}
+	return false;
+}
