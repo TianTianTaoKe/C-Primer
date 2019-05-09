@@ -303,3 +303,40 @@ private:
 	int month;
 	int day;
 };
+//IfElseThen---------------------------------------------------------------
+class IfElseThen
+{
+public:
+	IfElseThen(){}
+	int operator()(int i1, int i2, int i3){ return i1 ? i2 : i3; }
+};
+
+//ReadString-----------------------------------------------------------------
+class ReadString
+{
+public:
+	ReadString(istream& is = cin) :is(is){}
+	string operator()()
+	{
+		string line;
+		if (!getline(is,line))
+		{
+			line = "";
+		}
+		return line;
+	}
+protected:
+private:
+	istream &is;
+};
+
+//IntCompare----------------------------------------------------------------
+class IntCompare
+{
+public:
+	IntCompare(int v) :val(v){}
+	bool operator()(int v){ return val == v; }
+protected:
+private:
+	int val;
+};
