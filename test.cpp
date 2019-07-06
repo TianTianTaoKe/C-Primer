@@ -97,10 +97,26 @@ B::B(const B& rhs)
 	b = rhs.b;
 }
 
+class IsBiger
+{
+public:
+	IsBiger(int i):ibig(i){}
+	bool operator()(int n) { return n > ibig; }
+private:
+	int ibig;
+};
 
 int main(int argc, char * argv[])
 {
-	Exercise14_37();
+	//Exercise14_37();
+
+	vector <int> vInt = { 1,2,3,4,5,6,7 };
+
+	int big = 3;
+
+	
+
+	cout << *(find_if(vInt.begin(), vInt.end(), IsBiger(3)));
 	
 	system("pause");
 }
