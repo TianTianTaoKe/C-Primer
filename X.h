@@ -340,3 +340,14 @@ protected:
 private:
 	int val;
 };
+
+//CheckSize
+class CheckSize
+{
+public:
+	CheckSize(int n):iChecksize(n){}
+
+	bool operator()(string str) { return str.length() > iChecksize;}
+private:
+	int iChecksize;
+};

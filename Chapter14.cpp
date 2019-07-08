@@ -35,3 +35,20 @@ void Exercise14_37()
 	IntCompare icmp(oldValue);
 	std::replace_if(vecInt.begin(), vecInt.end(), icmp, newValue);
 }
+
+void Exercise14_38()
+{
+	ifstream ifile;
+	ifile.open(".\\test.txt",ifstream::in);
+	CheckSize checkSize(1);
+	string word;
+	int count = 0;
+	while (ifile >> word)
+	{
+		if (checkSize(word))
+		{
+			count++;
+		}
+	}
+	cout << "count = " << count << endl;
+}
