@@ -40,15 +40,38 @@ void Exercise14_38()
 {
 	ifstream ifile;
 	ifile.open(".\\test.txt",ifstream::in);
-	CheckSize checkSize(1);
+	
 	string word;
+	vector<string> vecWord;
 	int count = 0;
 	while (ifile >> word)
 	{
-		if (checkSize(word))
-		{
-			count++;
-		}
+		vecWord.push_back(word);
 	}
-	cout << "count = " << count << endl;
+	const int minLen = 1;
+	const int maxLen = 10;
+	for (int i = minLen;i<= maxLen;++i)
+	{
+		CheckSize checkSize(i);
+		cout << "Len : " << i << ",cnt :" << count_if(vecWord.begin(), vecWord.end(), checkSize) << endl;
+	}
+}
+
+void Exercise14_39()
+{
+	ifstream ifile;
+	ifile.open(".\\test.txt", ifstream::in);
+
+	string word;
+	vector<string> vecWord;
+	int count = 0;
+	while (ifile >> word)
+	{
+		vecWord.push_back(word);
+	}
+
+	StrLenBetween strLenBetween(1, 9);
+	StrNotShorterThan strNotShorterThan(10);
+	cout << "Len 1~9 ,cnt :" << count_if(vecWord.begin(), vecWord.end(), strLenBetween) << endl;
+	cout << "Len >=10 ,cnt :" << count_if(vecWord.begin(), vecWord.end(), strNotShorterThan) << endl;
 }

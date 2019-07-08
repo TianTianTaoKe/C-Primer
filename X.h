@@ -347,7 +347,28 @@ class CheckSize
 public:
 	CheckSize(int n):iChecksize(n){}
 
-	bool operator()(string str) { return str.length() > iChecksize;}
+	bool operator()(const string & str) { return str.length() == iChecksize;}
 private:
 	int iChecksize;
+};
+
+class StrLenBetween
+{
+public:
+	StrLenBetween(int min,int max):iMinLen(min),iMaxLen(max){}
+
+	bool operator()(const string& str) { return str.length() >= iMinLen && str.length() <= iMaxLen; }
+private:
+	int iMinLen;
+	int iMaxLen;
+};
+
+class StrNotShorterThan
+{
+public:
+	StrNotShorterThan(int min):iMinLen(min){}
+
+	bool operator()(const string& str) { return str.length() >= iMinLen; }
+private:
+	int iMinLen;
 };

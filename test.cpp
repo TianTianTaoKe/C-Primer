@@ -108,16 +108,8 @@ private:
 
 int main(int argc, char * argv[])
 {
-	//Exercise14_37();
-
-	vector <int> vInt = { 1,2,3,4,5,6,7 };
-
-	int big = 3;
-
-	
-
-	cout << *(find_if(vInt.begin(), vInt.end(), IsBiger(3)));
-	
+	Exercise14_38();
+	Exercise14_39();
 	system("pause");
 }
 
