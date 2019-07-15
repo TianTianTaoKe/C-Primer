@@ -13,6 +13,7 @@
 #include <memory>
 #include <utility>
 #include <initializer_list>
+#include <functional>
 
 using std::cout;
 using std::cin;
@@ -37,3 +38,5 @@ using std::allocator;
 using std::pair;
 using std::initializer_list;
 using std::uninitialized_copy;
+using std::multiplies;
+using std::modulus;

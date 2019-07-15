@@ -372,3 +372,21 @@ public:
 private:
 	int iMinLen;
 };
+
+class IsShoter
+{
+public:
+	bool operator() (const string& str1, const string & str2)
+	{
+		return str1.size() < str2.size();
+	}
+};
+
+class PrintClass
+{
+public:
+	void operator() (const string& str)
+	{
+		cout << str << " ";
+	}
+};

@@ -75,3 +75,41 @@ void Exercise14_39()
 	cout << "Len 1~9 ,cnt :" << count_if(vecWord.begin(), vecWord.end(), strLenBetween) << endl;
 	cout << "Len >=10 ,cnt :" << count_if(vecWord.begin(), vecWord.end(), strNotShorterThan) << endl;
 }
+
+void elimDups(vector<string> &words)
+{
+	sort(words.begin(), words.end());
+	auto end_unique = unique(words.begin(), words.end());
+	words.erase(end_unique, words.end());
+}
+
+void Exercise14_40(vector <string> &words,vector<string>::size_type sz)
+{
+	elimDups(words);
+	IsShoter is;
+	stable_sort(words.begin(), words.end(), is);
+
+	StrNotShorterThan nst(sz);
+	auto wc = find_if(words.begin(), words.end(), nst);
+	auto count = words.end() - wc;
+
+	cout << count << " words of length " << sz << "or longer" << endl;
+
+	PrintClass ps;
+	for_each(wc, words.end(), ps);
+	cout << endl;
+}
+
+void Exercise14_42()
+{
+	/*
+	(a) count_if(vec.begin(),vec.end(),bind2nd(greater<int>(),1024));
+	(b) find_if(vec.begin(),vec.end(),bind2nd(not_equal_to<string>(),"pooh"));
+	(c) transform(vec.begin(), vec.end(), vec.begin(), bind2nd(multiplies<int>(), 2));
+	*/
+}
+
+bool Exercise14_43(vector<int>& ivec, int dividend)
+{
+	return count_if(ivec.begin(), ivec.end(), bind1st(modulus<int>(), dividend)) == 0;	
+}

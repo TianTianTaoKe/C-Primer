@@ -108,8 +108,9 @@ private:
 
 int main(int argc, char * argv[])
 {
-	Exercise14_38();
-	Exercise14_39();
+	vector<int> ivec = { 2,3,5,7,11 };
+	int dividend = 2 * 3 * 5 * 7 * 11;
+	cout << Exercise14_43(ivec, dividend);
 	system("pause");
 }
 
