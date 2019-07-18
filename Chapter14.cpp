@@ -113,3 +113,16 @@ bool Exercise14_43(vector<int>& ivec, int dividend)
 {
 	return count_if(ivec.begin(), ivec.end(), bind1st(modulus<int>(), dividend)) == 0;	
 }
+
+int Exercise14_44(string op, int a, int b)
+{
+	map<string, function<int(int, int)> > binOps = {
+		{"+",std::plus<int>()},
+		{"-",std::minus<int>()},
+		{"*",std::multiplies<int>()},
+		{"/",std::divides<int>()},
+		{"%",std::modulus<int>()},
+	};
+
+	return binOps[op](a, b);
+}

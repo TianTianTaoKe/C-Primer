@@ -40,3 +40,4 @@ using std::initializer_list;
 using std::uninitialized_copy;
 using std::multiplies;
 using std::modulus;
+using std::function;
