@@ -23,6 +23,9 @@ public:
 	Sales_data& operator+=(const Sales_data&);
 	Sales_data& operator-=(const Sales_data&);
 	Sales_data& operator=(const string & isbn);
+
+	operator string() { return bookNo; }
+	operator double() { return revenue; }
 private:
 	std::string bookNo;			//书籍编号
 	unsigned units_sold = 0;	//销售量

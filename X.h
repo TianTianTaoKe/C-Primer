@@ -297,6 +297,9 @@ public:
 	Date(){}
 	Date(int y, int m, int d) :year(y), month(m), day(d){}
 	Date& operator=(const string & date);
+	bool IsLeapYear();
+
+	explicit operator bool();
 protected:
 private:
 	int year;
