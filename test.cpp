@@ -8,6 +8,7 @@
 #include "Chapter12.h"
 #include "Chapter13.h"
 #include "Chapter14.h"
+#include "Chapter15.h"
 #include "Screen.h"
 
 
@@ -108,10 +109,7 @@ private:
 
 int main(int argc, char * argv[])
 {
-	int a, b;
-	string op;
-	cin >> a >> op >> b;
-	cout << Exercise14_44(op, a, b);
+	Exercise15_6();
 	system("pause");
 }
 

@@ -177,7 +177,7 @@ void Exercise14_52()
 	*/
 }
 
-void Exercise114_53()
+void Exercise14_53()
 {
 	/*
 	内置的operator+（int，double）可行，3.14可以转化成int再转黄成SmallInt所以SmallInt的成员函数

@@ -393,3 +393,66 @@ public:
 		cout << str << " ";
 	}
 };
+
+class Quote
+{
+public:
+	Quote() = default;
+	Quote(string& bookNo, double sales_price)
+		:m_strBookNo(bookNo), m_dPrice(sales_price){}
+	string isbn() const { return m_strBookNo; }
+
+	virtual double NetPrice(std::size_t n) const { return n * m_dPrice; }
+
+	~Quote() = default;
+private:
+	string m_strBookNo;
+protected:
+	double m_dPrice = 0.0;
+};
+
+double PrintTotal(ostream& os, const Quote& item, size_t n);
+
+class BulKQuote:public Quote
+{
+public:
+	BulKQuote(string bookNo, double price, size_t minQty, double discount)
+		:Quote(bookNo, price), m_minQty(minQty), m_discount(discount) {}
+	double NetPrice(std::size_t n) const override
+	{
+		if (n >= m_minQty)
+		{
+			return n * (1 - m_discount) * m_dPrice;
+		}
+		else
+		{
+			return n * m_dPrice;
+		}
+	}
+protected:
+private:
+	size_t m_minQty;
+	double m_discount;
+};
+
+class LimitedQuote :public Quote
+{
+public:
+	LimitedQuote(string bookNo, double price, size_t maxQty, double discount)
+		:Quote(bookNo, price), m_maxQty(maxQty), m_discount(discount) {}
+	double NetPrice(std::size_t n) const override
+	{
+		if (n >= m_maxQty)
+		{
+			return m_maxQty * (1 - m_discount) * m_dPrice + (n - m_maxQty) * m_dPrice;
+		}
+		else
+		{
+			return n * (1 - m_discount) * m_dPrice;
+		}
+	}
+protected:
+private:
+	size_t m_maxQty;
+	double m_discount;
+};
