@@ -57,6 +57,7 @@ public:
 	A();
 	~A();
 	int a;
+	virtual void fun() { a += 1; }
 private:
 
 };
@@ -98,6 +99,11 @@ B::B(const B& rhs)
 	b = rhs.b;
 }
 
+class C :public A
+{
+	void fun() { a += 2; } 
+};
+
 class IsBiger
 {
 public:
@@ -107,9 +113,16 @@ private:
 	int ibig;
 };
 
+void fun2(A& a)
+{
+	a.fun();
+	cout << a.a;
+}
+
 int main(int argc, char * argv[])
 {
-	Exercise15_6();
+
+
 	system("pause");
 }
 

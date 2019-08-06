@@ -403,7 +403,10 @@ public:
 	string isbn() const { return m_strBookNo; }
 
 	virtual double NetPrice(std::size_t n) const { return n * m_dPrice; }
-
+	virtual void Debug()
+	{
+		cout << "m_strBookNo:" << m_strBookNo << " m_dPrice:" << m_dPrice;
+	}
 	~Quote() = default;
 private:
 	string m_strBookNo;
@@ -413,14 +416,32 @@ protected:
 
 double PrintTotal(ostream& os, const Quote& item, size_t n);
 
-class BulKQuote:public Quote
+class DiscQuote :public Quote
+{
+public:
+	DiscQuote() = default;
+	DiscQuote(string bookNo, double price, size_t Qty, double discount)
+		:Quote(bookNo, price), m_Qty(Qty), m_discount(discount) {}
+	double NetPrice(std::size_t n) const = 0;
+
+	virtual void Debug()
+	{
+		Quote::Debug();
+		cout << "m_Qty:" << m_Qty << " m_discount:" << m_discount;
+	}
+protected:
+	size_t m_Qty;
+	double m_discount;
+};
+
+class BulKQuote:public DiscQuote
 {
 public:
 	BulKQuote(string bookNo, double price, size_t minQty, double discount)
-		:Quote(bookNo, price), m_minQty(minQty), m_discount(discount) {}
+		:DiscQuote(bookNo,price,minQty,discount) {}
 	double NetPrice(std::size_t n) const override
 	{
-		if (n >= m_minQty)
+		if (n >= m_Qty)
 		{
 			return n * (1 - m_discount) * m_dPrice;
 		}
@@ -429,30 +450,135 @@ public:
 			return n * m_dPrice;
 		}
 	}
-protected:
-private:
-	size_t m_minQty;
-	double m_discount;
 };
 
-class LimitedQuote :public Quote
+class LimitedQuote :public DiscQuote
 {
 public:
 	LimitedQuote(string bookNo, double price, size_t maxQty, double discount)
-		:Quote(bookNo, price), m_maxQty(maxQty), m_discount(discount) {}
+		:DiscQuote(bookNo, price, maxQty, discount) {}
 	double NetPrice(std::size_t n) const override
 	{
-		if (n >= m_maxQty)
+		if (n >= m_Qty)
 		{
-			return m_maxQty * (1 - m_discount) * m_dPrice + (n - m_maxQty) * m_dPrice;
+			return m_Qty * (1 - m_discount) * m_dPrice + (n - m_Qty) * m_dPrice;
 		}
 		else
 		{
 			return n * (1 - m_discount) * m_dPrice;
 		}
 	}
-protected:
-private:
-	size_t m_maxQty;
-	double m_discount;
 };
+
+class Base
+{
+public:
+	void PubMem(){}
+protected:
+	void ProtMem(){}
+private:
+	void PrivMem(){}
+};
+
+class PubDerv :public Base
+{
+	void MemFun(Base& b)
+	{
+		b = *this;
+	}
+};
+
+class PrivDerv :private Base
+{
+	void MemFun(Base& b)
+	{
+		b = *this;
+	}
+};
+
+class ProtDerv :protected Base
+{
+	void MemFun(Base& b)
+	{
+		b = *this;
+	}
+};
+
+class DerivedFromPublic :public PubDerv
+{
+	void MemFun(Base& b)
+	{
+		b = *this;
+	}
+};
+
+class DerivedFromPrivate :protected PrivDerv
+{
+	//void MemFun(Base& b)
+	//{
+	//	b = *this;
+	//}
+};
+
+class DerivedFromProtected :protected ProtDerv
+{
+	void MemFun(Base& b)
+	{
+		b = *this;
+	}
+};
+
+//class Figure
+//{
+//public:
+//	Figure(double, double);
+//protected:
+//	double xSize, ySize;
+//};
+//
+//class Figure_2D:public Figure
+//{
+//public:
+//	Figure_2D(double, double);
+//	virtual double area() = 0;
+//	virtual double pcrimeter() = 0;
+//};
+//
+//class Figure_3D :public Figure
+//{
+//public:
+//	Figure_3D(double, double, double);
+//	virtual double cubage() = 0;
+//protected:
+//	double zSize;
+//};
+//
+//class Rectangle :public Figure_2D
+//{
+//public:
+//	Rectangle(double, double);
+//	virtual double area();
+//	virtual double pcrimeter();
+//};
+//
+//class Circle :public Figure_2D
+//{
+//public:
+//	Circle(double, double);
+//	virtual double area();
+//	virtual double pcrimeter();
+//};
+//
+//class Sphere :public Figure_3D
+//{
+//public:
+//	Sphere(double, double,double);
+//	virtual double cubage();
+//};	
+//
+//class Cone :public Figure_3D
+//{
+//public:
+//	Cone(double, double, double);
+//	virtual double cubage();
+//};
