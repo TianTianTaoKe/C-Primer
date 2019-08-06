@@ -35,3 +35,8 @@ void Exercise15_6()
 	PrintTotal(cout, quote, 20);
 	PrintTotal(cout, bulkQuote, 20);
 }
+
+void Exercise15_8()
+{
+
+}
