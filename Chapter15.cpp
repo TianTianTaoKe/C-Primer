@@ -127,3 +127,27 @@ void Exercise15_20()
 	//p = &dd2;
 	//p = &dd3;
 }
+
+void Exercise15_23()
+{
+	/*
+	DI类的fun函数改为int fcn()
+	p2->fcn(42) 会报错
+	*/
+}
+
+void Exercise15_24()
+{
+	/*
+	基类需要虚析构函数
+	虚析构函数可以为空。虚析构函数必须清除本类中定义的数据成员
+	*/
+}
+
+void Exercise15_25()
+{
+	/*
+	因为Disc_Quote的默认构造函数会调用Quote的默认构造函数。
+	如果去掉，编译器无法合成Bulk_Quote的默认构造函数
+	*/
+}
