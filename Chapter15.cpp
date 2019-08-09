@@ -151,3 +151,59 @@ void Exercise15_25()
 	如果去掉，编译器无法合成Bulk_Quote的默认构造函数
 	*/
 }
+
+void Exercise15_26()
+{
+	BulKQuote bulkQuote("1111", 10.0, 10, 0.1);
+	BulKQuote bulkQuote2(bulkQuote);
+	BulKQuote bulkQuote3("2222", 10.0, 10, 0.1);
+	bulkQuote3 = bulkQuote;
+}
+
+void Exercise15_28()
+{
+	vector <Quote> vecQuote;
+	for (int i = 0;i<5;++i)
+	{
+		vecQuote.push_back(BulKQuote("1111", 10, 10, 0.1));
+	}
+
+	int sum = 0;
+	for (vector<Quote>::iterator  iter = vecQuote.begin();iter != vecQuote.end();++iter)
+	{
+		sum += iter->NetPrice(15);
+	}
+
+	cout << sum << endl;
+}
+
+void Exercise15_29()
+{
+	vector <shared_ptr<Quote> > vecQuote;
+	for (int i = 0; i < 5; ++i)
+	{
+		vecQuote.push_back(make_shared<BulKQuote>("1111", 10, 10, 0.1));
+	}
+
+	int sum = 0;
+	for (vector<shared_ptr<Quote>>::iterator iter = vecQuote.begin(); iter != vecQuote.end(); ++iter)
+	{
+		sum += (*iter)->NetPrice(15);
+	}
+
+	cout << sum << endl;
+	/*
+	结果不一样，当通过Quote的对象调用NetPrice时不实行动态绑定，调用的时Quote中的版本，而通过
+	Quote的指针调用NetPrice时实行动态绑定，实际指向BulkQuote类中定义的版本
+	*/
+}
+
+void Exercise15_30()
+{
+	Basket basket;
+	for (int i = 0; i < 75; ++i)
+	{
+		basket.AddItem(BulKQuote("1111", 10, 10, 0.1));
+	}
+	basket.TotalReceipt(cout);
+}

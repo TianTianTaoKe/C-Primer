@@ -753,3 +753,29 @@ double PrintTotal(ostream& os, const Quote& item, size_t n)
 	os << "ISBN: " << item.isbn() << " # sold: " << n << " total due: " << ret << endl;
 	return  ret;
 }
+
+void Basket::AddItem(const Quote& sale)
+{
+	item.insert(shared_ptr<Quote>(sale.clone()));
+}
+
+void Basket::AddItem(Quote&& sale)
+{
+	item.insert(shared_ptr<Quote>(std::move(sale).clone()));
+}
+
+double Basket::TotalReceipt(ostream& os) const
+{
+	double sum = 0;
+	for (auto iter = item.begin();iter != item.end();iter = item.upper_bound(*iter))
+	{
+		sum = PrintTotal(os, **iter, item.count(*iter));
+	}
+	os << "Total Sale: " << sum << endl;
+	return sum;
+}
+
+bool Basket::compare(const shared_ptr<Quote>& lhs, const shared_ptr<Quote>& rhs)
+{
+	return lhs->isbn() < rhs->isbn();
+}

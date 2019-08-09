@@ -32,3 +32,11 @@ void Exercise15_23();
 void Exercise15_24();
 
 void Exercise15_25();
+
+void Exercise15_26();
+
+void Exercise15_28();
+
+void Exercise15_29();
+
+void Exercise15_30();

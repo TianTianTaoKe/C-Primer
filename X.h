@@ -402,10 +402,28 @@ public:
 		:m_strBookNo(bookNo), m_dPrice(sales_price){}
 	string isbn() const { return m_strBookNo; }
 
+	Quote(const Quote& rhs)
+		:m_strBookNo(rhs.m_strBookNo)
+		,m_dPrice(rhs.m_dPrice)
+	{
+		//cout << "Quote(const Quote& rhs)" << endl;
+	}
+
+	Quote& operator=(const Quote& rhs)
+	{
+		m_strBookNo = rhs.m_strBookNo;
+		m_dPrice = rhs.m_dPrice;
+		//cout << "Quote& operator=(const Quote& rhs)" << endl;
+		return *this;
+	}
+
+	virtual Quote* clone() const & { return new Quote(*this); }
+	virtual Quote* clone() && { return new Quote(std::move(*this)); }
+
 	virtual double NetPrice(std::size_t n) const { return n * m_dPrice; }
 	virtual void Debug()
 	{
-		cout << "m_strBookNo:" << m_strBookNo << " m_dPrice:" << m_dPrice;
+		//cout << "m_strBookNo:" << m_strBookNo << " m_dPrice:" << m_dPrice;
 	}
 	~Quote() = default;
 private:
@@ -422,6 +440,23 @@ public:
 	DiscQuote() = default;
 	DiscQuote(string bookNo, double price, size_t Qty, double discount)
 		:Quote(bookNo, price), m_Qty(Qty), m_discount(discount) {}
+
+	DiscQuote(const DiscQuote& rhs)
+		:Quote(rhs)
+		, m_Qty(rhs.m_Qty)
+		, m_discount(rhs.m_discount)
+	{
+		//cout << "DiscQuote(const DiscQuote& rhs)" << endl;
+	}
+
+	DiscQuote& operator=(const DiscQuote& rhs)
+	{
+		Quote::operator=(rhs);
+		m_Qty = rhs.m_Qty;
+		m_discount = rhs.m_discount;
+		//cout << "DiscQuote& operator=(const DiscQuote& rhs)" << endl;
+		return *this;
+	}
 	double NetPrice(std::size_t n) const = 0;
 
 	virtual void Debug()
@@ -429,6 +464,9 @@ public:
 		Quote::Debug();
 		cout << "m_Qty:" << m_Qty << " m_discount:" << m_discount;
 	}
+
+
+
 protected:
 	size_t m_Qty;
 	double m_discount;
@@ -437,8 +475,24 @@ protected:
 class BulKQuote:public DiscQuote
 {
 public:
-	BulKQuote(string bookNo, double price, size_t minQty, double discount)
-		:DiscQuote(bookNo,price,minQty,discount) {}
+	using DiscQuote::DiscQuote;
+
+	BulKQuote(const BulKQuote& rhs)
+		:DiscQuote(rhs)
+	{
+		//cout << "BulKQuote(const BulKQuote& rhs)" << endl;
+	}
+
+	BulKQuote& operator=(const BulKQuote& rhs)
+	{
+		DiscQuote::operator=(rhs);
+		//cout << "BulKQuote& operator=(const BulKQuote& rhs)" << endl;
+		return *this;
+	}
+
+	virtual BulKQuote* clone() const & { return new BulKQuote(*this); }
+	virtual BulKQuote* clone() && { return new BulKQuote(std::move(*this)); }
+
 	double NetPrice(std::size_t n) const override
 	{
 		if (n >= m_Qty)
@@ -582,3 +636,14 @@ class DerivedFromProtected :protected ProtDerv
 //	Cone(double, double, double);
 //	virtual double cubage();
 //};
+
+class Basket
+{
+public:
+	void AddItem(const Quote& sale);
+	void AddItem(Quote&& sale);
+	double TotalReceipt(ostream& os) const;
+private:
+	static bool compare(const shared_ptr<Quote>& lhs, const shared_ptr<Quote>& rhs);
+	std::multiset<shared_ptr<Quote>, decltype(compare)* > item{ compare };
+};
