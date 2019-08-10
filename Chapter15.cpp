@@ -207,3 +207,14 @@ void Exercise15_30()
 	}
 	basket.TotalReceipt(cout);
 }
+
+void Exercise15_31()
+{
+	/*
+	a.共创建了12个对象6个QueryBase对象和对应的句柄，分别是3个WordQuery对象，一个NotQuery对象，一个
+	AndQuery对象，一个OrQuery对象
+	b.与a相同
+	c.创建了14个对象，7个QueryBase对象和对应的句柄，4个WordQuery对象，2个AndQuery对象，一个OrQuery
+	对象
+	*/
+}
