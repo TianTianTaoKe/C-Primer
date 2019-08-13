@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "X.h"
+#include "TextQuery.h"
 #include "Chapter15.h"
 
 void Exercise15_1()
@@ -236,4 +237,33 @@ void Exercise15_33()
 	控制成员。而QueryBase没有定义自己的拷贝/移动控制成员，实际上它没有任何数据成员，无须定义这些操作，
 	因此进行这些操作时执行默认语义，什么也不会发生。
 	*/
+}
+
+void Exercise15_34()
+{
+	/*	
+	a.
+	WordQuery(const string& s)
+	Query(const string& s)
+	WordQuery(const string& s)
+	Query(const string& s)
+	WordQuery(const string& s)
+	Query(const string& s)
+	BinaryQuery(const Query& l, const Query& r, std::string s)
+	AndQuery(const Query& left, const Query& right)
+	Query(shared_ptr<QueryBase> query)
+	BinaryQuery(const Query& l, const Query& r, std::string s)
+	OrQuery(const Query& left, const Query& right)
+	Query(shared_ptr<QueryBase> query)
+	b.
+	Query BinaryQuery Query WordQuery Query BinaryQuery Query WordQuery Query WordQuery
+	c.
+	Query OrQuery AndQuery WordQuery
+	*/
+}
+
+void Exercise15_35()
+{
+	Query q = Query("fiery") & Query("bird") | Query("wind");
+	cout << q;
 }
