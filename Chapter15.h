@@ -49,4 +49,12 @@ void Exercise15_33();
 
 void Exercise15_34();
 
-void Exercise15_35();
+void Exercise15_36();
+
+void Exercise15_37();
+
+void Exercise15_38();
+
+void Exercise15_40();
+
+void Exercise15_41();

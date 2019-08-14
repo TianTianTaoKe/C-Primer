@@ -101,7 +101,7 @@ class AndQuery :public BinaryQuery
 {
 	friend Query operator&(const Query&, const Query&);
 	AndQuery(const Query& left, const Query& right) :BinaryQuery(left, right, "&") { cout << "AndQuery(const Query& left, const Query& right)" << endl; }
-	TextQueryResult eval(const TextQuery&) const { return TextQueryResult(); };
+	TextQueryResult eval(const TextQuery&) const;
 };
 
 inline Query operator&(const Query& lhs, const Query& rhs)
@@ -113,7 +113,7 @@ class OrQuery :public BinaryQuery
 {
 	friend Query operator|(const Query&, const Query&);
 	OrQuery(const Query& left, const Query& right) :BinaryQuery(left, right, "|") { cout << "OrQuery(const Query& left, const Query& right)" << endl; }
-	TextQueryResult eval(const TextQuery&) const { return TextQueryResult(); };
+	TextQueryResult eval(const TextQuery&) const;
 };
 
 inline Query operator|(const Query& lhs, const Query& rhs)

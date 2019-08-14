@@ -262,8 +262,39 @@ void Exercise15_34()
 	*/
 }
 
-void Exercise15_35()
+void Exercise15_36()
 {
 	Query q = Query("fiery") & Query("bird") | Query("wind");
 	cout << q;
+}
+
+void Exercise15_37()
+{
+	/*
+	涉及使用Query类型的地方要改成QueryBase指针。如创建单个词查询时就必须创建WordQuery类。几个重载
+	的布尔运算符也要针对QueryBase指针。复杂的查询请求需逐个运算完成将结果赋予QueryBase指针，再进行
+	下一步运算
+	*/
+}
+
+void Exercise15_38()
+{
+	/*
+	a.b.c 都不合法不能将Query类转换为BinaryQuery及其派生类
+	并且BinaryQuery不能实例化
+	*/
+}
+
+void Exercise15_40()
+{
+	/*
+	没有问题，程序可以处理空集
+	*/
+}
+
+void Exercise15_41()
+{
+	/*
+	需要增加引用计数成员int *uc,并增加拷贝构造函数，拷贝赋值运算符和析构函数
+	*/
 }

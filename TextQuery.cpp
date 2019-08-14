@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "TextQuery.h"
+#include <iterator>
+using std::inserter;
 
 TextQuery::TextQuery(ifstream & ifile) :file(new StrVec )
 {
@@ -33,4 +35,47 @@ TextQueryResult TextQuery::query(const string& sought) const
 	}
 	else
 		return TextQueryResult(sought, nodata,file);
+}
+
+TextQueryResult NotQuery::eval(const TextQuery& text) const
+{
+	auto result = query.eval(text);
+	auto retLine = make_shared<set<int> >();
+	auto beg = result.begin(), end = result.end();
+	auto sz = result.get_file()->size();
+	for (size_t n = 0;n != sz;++n)
+	{
+		if (beg == end || n != *beg)
+		{
+			retLine->insert(n);
+		}
+		else if (beg != end)
+		{
+			++beg;
+		}
+	}
+	return TextQueryResult(rep(), retLine, result.get_file());
+}
+
+TextQueryResult AndQuery::eval(const TextQuery& text) const
+{
+	auto right = rhs.eval(text), left = lhs.eval(text);
+
+	auto retLine = make_shared<set<int> >();
+	set_intersection(left.begin(),left.end(),
+		right.begin(), right.end(),
+		inserter(*retLine,retLine->begin()));
+	retLine->insert(left.begin(), left.end());
+
+	return TextQueryResult(rep(), retLine, left.get_file());
+}
+
+TextQueryResult OrQuery::eval(const TextQuery& text) const
+{
+	auto right = rhs.eval(text), left = lhs.eval(text);
+
+	auto retLine = make_shared<set<int> >(right.begin(), right.end());
+	retLine->insert(left.begin(), left.end());
+
+	return TextQueryResult(rep(), retLine, left.get_file());
 }
