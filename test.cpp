@@ -9,6 +9,7 @@
 #include "Chapter13.h"
 #include "Chapter14.h"
 #include "Chapter15.h"
+#include "Chapter16.h"
 #include "Screen.h"
 
 
@@ -121,7 +122,7 @@ void fun2(A& a)
 
 int main(int argc, char * argv[])
 {
-	Exercise15_36();
+	Exercise16_4();
 
 
 	system("pause");
