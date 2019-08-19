@@ -38,3 +38,18 @@ void Exercise16_4()
 		cout << "找到了" << endl;
 	}
 }
+
+void Exercise16_5()
+{
+	int a[6] = { 1,2,3,4,5,6 };
+	string	vs[3] = { "123","234","345" };
+	MyPrint(a);
+	MyPrint(vs);
+}
+
+void Exercise16_8()
+{
+	/*
+	因为所有的标准库容器都定义了==和!=运算符，但其中只有少数定义了<运算符。
+	*/
+}
