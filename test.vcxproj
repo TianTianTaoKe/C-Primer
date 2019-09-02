@@ -84,9 +84,11 @@
     <ClCompile Include="Chapter13.cpp" />
     <ClCompile Include="Chapter14.cpp" />
     <ClCompile Include="Chapter15.cpp" />
+    <ClCompile Include="Chapter16.cpp" />
     <ClCompile Include="Chapter9.cpp" />
     <ClCompile Include="Chapter8.cpp" />
     <ClCompile Include="fact.cpp" />
+    <ClCompile Include="MyTemplate.h.cpp" />
     <ClCompile Include="numbered.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Sales_data.cpp" />
@@ -107,9 +109,11 @@
     <ClInclude Include="Chapter13.h" />
     <ClInclude Include="Chapter14.h" />
     <ClInclude Include="Chapter15.h" />
+    <ClInclude Include="Chapter16.h" />
     <ClInclude Include="Chapter6.h" />
     <ClInclude Include="Chapter8.h" />
     <ClInclude Include="Chapter9.h" />
+    <ClInclude Include="MyTemplate.h" />
     <ClInclude Include="numbered.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Sales_data.h" />

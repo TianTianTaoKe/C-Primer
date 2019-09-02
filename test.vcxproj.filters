@@ -69,6 +69,12 @@
     <ClCompile Include="Chapter15.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Chapter16.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MyTemplate.h.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Book.h">
@@ -126,6 +132,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Chapter15.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Chapter16.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyTemplate.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

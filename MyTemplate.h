@@ -58,5 +58,47 @@ void MyPrint(const T(&a)[N])
 	}
 }
 
+template <typename> class BlobPtrTemp;
+template <typename T>class BlobTemp
+{
+public:
+	typedef T value_type;
+	typedef typename std::vector<T>::size_type size_type;
 
+	BlobTemp();
+
+	BlobTemp(initializer_list<T> il);
+	template <typename It> BlobTemp(It b, It e);
+	BlobTemp(T*, std::size_t);
+
+	BlobPtrTemp<T> begin(){ return BlobPtrTemp<T>(*this); }
+	BlobPtrTemp<T> end()
+	{
+		auto ret = BlobPtrTemp<T>(*this, data->size());
+		return  ret;
+	}
+
+	size_type size() const { return data->size(); }
+	bool empty() const { return data->empty(); }
+
+	void push_back(const T& t) { data->push_back(t); }
+	void push_back(T&& t) { data->push_back(std::move(t)); }
+	void pop_back();
+
+	T& front();
+	T& back();
+	T& at(size_type);
+	const T& back() const;
+	const T& front() const;
+	const T& at(size_type) const;
+	T& operator[](size_type i);
+	const T& operator[](size_type i) const;
+
+	void swap(BlobTemp& b) { data.swap(b.data); }
+
+private:
+	std::shared_ptr<std::vector<T> > data;
+
+	void check(size_type i, const std::string& msg) const;
+};
 
