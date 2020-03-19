@@ -264,8 +264,11 @@ void Exercise15_34()
 
 void Exercise15_36()
 {
+	ifstream ifile("test.txt");
+	TextQuery t(ifile);
 	Query q = Query("fiery") & Query("bird") | Query("wind");
 	cout << q;
+	q.eval(t);
 }
 
 void Exercise15_37()

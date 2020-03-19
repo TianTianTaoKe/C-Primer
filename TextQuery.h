@@ -43,8 +43,6 @@ private:
 	virtual string rep() const = 0;
 };
 
-
-
 class WordQuery:public QueryBase
 {
 	friend class Query;

@@ -423,7 +423,7 @@ public:
 	virtual double NetPrice(std::size_t n) const { return n * m_dPrice; }
 	virtual void Debug()
 	{
-		//cout << "m_strBookNo:" << m_strBookNo << " m_dPrice:" << m_dPrice;
+		cout << "m_strBookNo:" << m_strBookNo << " m_dPrice:" << m_dPrice;
 	}
 	~Quote() = default;
 private:
