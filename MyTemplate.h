@@ -59,11 +59,16 @@ void MyPrint(const T(&a)[N])
 }
 
 template <typename> class BlobPtrTemp;
+template <typename> class BlobTemp;
+template <typename T>
+bool operator==(const BlobTemp<T>&, const BlobTemp<T>&);
 template <typename T>class BlobTemp
 {
+	friend class BlobPtrTemp<T>;
+	friend bool operator==<T>(const BlobTemp<T>&, const BlobTemp<T>&);
 public:
 	typedef T value_type;
-	typedef typename std::vector<T>::size_type size_type;
+	typedef typename vector<T>::size_type size_type;
 
 	BlobTemp();
 
@@ -102,3 +107,220 @@ private:
 	void check(size_type i, const std::string& msg) const;
 };
 
+template <typename T>
+BlobTemp<T>::BlobTemp(T* p, std::size_t n)
+	:data(std::make_shared<std::vector<T> >(p, p + n))
+{
+}
+
+template <typename T>
+BlobTemp<T>::BlobTemp()
+	: data(std::make_shared<std::vector<T> >())
+{
+
+}
+
+template <typename T>
+template <typename It>
+BlobTemp<T>::BlobTemp(It b, It e)
+	:data(std::make_shared<std::vector<T>>(b, e))
+{
+
+}
+
+template<typename T>
+BlobTemp<T>::BlobTemp(std::initializer_list<T> il) :
+	data(std::make_shared<std::vector<T> >(il))
+{
+
+}
+
+template<typename T>
+void BlobTemp<T>::check(size_type i, const std::string& msg) const
+{
+	if (i >= data->size())
+	{
+		throw std::out_of_range(msg);
+	}
+}
+
+template<typename T>
+T& BlobTemp<T>::front()
+{
+	check(0, "fron on empty BlobTemp");
+	return data->front();
+}
+
+template<typename T>
+T& BlobTemp<T>::back()
+{
+	check(0, "back on empty BlobTemp");
+	return data->back();
+}
+
+template<typename T>
+void BlobTemp<T>::pop_back()
+{
+	check(0, "pop_back on empty BlobTemp");
+	return data->pop_back();
+}
+
+template<typename T>
+const T& BlobTemp<T>::front() const
+{
+	check(0, "fron on empty BlobTemp");
+	return data->front();
+}
+
+template<typename T>
+const T& BlobTemp<T>::back() const
+{
+	check(0, "back on empty BlobTemp");
+	return data->back();
+}
+
+template<typename T>
+T& BlobTemp<T>::at(size_type i)
+{
+	check(i, "subscript out of range");
+	return (*data)[i];
+}
+
+template<typename T>
+const T& BlobTemp<T>::at(size_type i) const
+{
+	check(i, "subscript out of range");
+	return (*data)[i];
+}
+
+template<typename T>
+T& BlobTemp<T>::operator[](size_type i)
+{
+	check(i, "subscript out of range");
+	return (*data)[i];
+}
+
+template<typename T>
+const T& BlobTemp<T>::operator[](size_type i) const
+{
+	check(i, "subscript out of range");
+	return (*data)[i];
+}
+
+template <typename T>
+bool operator==(const BlobTemp<T>& lhs, const BlobTemp<T>& rhs)
+{
+	if (rhs.size() != lhs.size())
+	{
+		return false;
+	}
+	for (size_t i = 0; i < lha, size(); ++i)
+	{
+		if (lhs[i] != rhs[i])
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+template<typename T>
+bool operator==(const BlobPtrTemp<T>&, const BlobPtrTemp<T>&);
+
+template <typename T> class BlobPtrTemp
+{
+	friend bool operator==<T>(const BlobPtrTemp<T>&, const BlobPtrTemp<T>&);
+public:
+	BlobPtrTemp() :curr(0) {}
+	BlobPtrTemp(BlobTemp<T>&a,size_t sz = 0):wptr(a.data),curr(ze){}
+	T& operator[](size_t i)
+	{
+		auto p = check(i, "subscript out of range");
+		return (*p)[i];
+	}
+	const T& operator[](size_t i) const
+	{
+		auto p = check(i, "subscript out of range");
+		return (*p)[i];
+	}
+	T& operator*() const
+	{
+		auto p = check(curr, "dereference past end");
+		return (*p)[curr];
+	}
+	T* operator->() const
+	{
+		return &this->operator*();
+	}
+	BlobPtrTemp& operator++();
+	BlobPtrTemp& operator--();
+
+	BlobPtrTemp operator++(int);
+	BlobPtrTemp operator--(int);
+protected:
+private:
+	shared_ptr<vector<T> > check(size_t, const string&) const;
+	weak_ptr<vector<T> >wptr;
+	size_t curr;
+};
+
+template<typename T>
+bool operator==(const BlobPtrTemp<T>& lhs, const BlobPtrTemp<T>& rhs)
+{
+	return lhs.wptr.lock().get() == rhs.wptr.lock().get() && lhs.curr == rhs.curr;
+}
+
+template<typename T>
+bool operator!=(const BlobPtrTemp<T>& lhs, const BlobPtrTemp<T>& rhs)
+{
+	return !(lhs == rhs);
+}
+
+template <typename T>
+shared_ptr<vector<T> > BlobPtrTemp<T>::check(size_t i, const string& msg) const
+{
+	auto ret = wptr.lock();
+	if (!ret)
+	{
+		throw runtime_error("unbound BlobPtrTemp");
+	}
+	
+	if (i >= ret->size() || i < 0)
+	{
+		throw out_of_range(msg);
+	}
+	
+	return ret;
+}
+
+template <typename T>
+BlobPtrTemp<T> BlobPtrTemp<T>::operator++(int)
+{
+	BlobPtrTemp ret = *this;
+	++* this;
+	return ret;
+}
+
+template <typename T>
+BlobPtrTemp<T> BlobPtrTemp<T>::operator--(int)
+{
+	BlobPtrTemp ret = *this;
+	--* this;
+	return ret;
+}
+
+template <typename T>
+BlobPtrTemp<T>& BlobPtrTemp<T>::operator++()
+{
+	check(curr, "increment past end of BlobPtrTemp");
+	++curr;
+	return *this;
+}
+
+template <typename T>
+BlobPtrTemp<T>& BlobPtrTemp<T>::operator--()
+{
+	--curr;
+	check(curr, "decrement past begin of BlobPtrTemp");
+	return *this;
+}
