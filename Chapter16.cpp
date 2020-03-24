@@ -75,3 +75,10 @@ void Exercise16_11()
 	直接使用ListItem是错误的，应该使用ListItem<elemType>,类内的List<elemType>可简化为List
 	*/
 }
+
+void Exercise16_13()
+{
+	/*
+	由于函数模板的实例化只处理特定类型，每个BlobPtr实例与用相同类型实例化的运算符建立一对一的关系即可
+	*/
+}

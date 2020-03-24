@@ -324,3 +324,63 @@ BlobPtrTemp<T>& BlobPtrTemp<T>::operator--()
 	check(curr, "decrement past begin of BlobPtrTemp");
 	return *this;
 }
+
+template<unsigned uWidth,unsigned uHeight>
+class Screen
+{
+public:
+	Screen():contents(uWidth * uHeight,' '){}
+	Screen(char c):contents(uWidth * uHeight,c){}
+	friend class Window_mgr;
+	char get() const { return contents[cursor]; }
+	char get(int, int) const;
+	Screen& clear(char = bkground);
+	Screen& move(int r, int c);
+	Screen& set(char);
+	Screen& set(int, int, char);
+	const Screen& display(ostream& os) { do_display(os); return *this; }
+	const Screen& display(ostream& os) { do_display(os); return*this; }
+protected:
+private:
+	static const char bkground = ' ';
+	int cursor = 0;
+	string contents;
+	void do_display(ostream& os) const { os << contents; }
+};
+
+template<unsigned uWidth, unsigned uHeight>
+Screen<uWidth, uHeight>& Screen<uWidth, uHeight>::clear(char c)
+{
+	contents = string(uWidth * uHeight, c);
+	return *this;
+}
+
+template<unsigned uWidth, unsigned uHeight>
+Screen<uWidth, uHeight>& Screen<uWidth, uHeight>::move(int r, int c)
+{
+	int row = r * uWidth;
+	cursor = row + c;
+	return *this;
+}
+
+template<unsigned uWidth, unsigned uHeight>
+char Screen<uWidth, uHeight>::get(int r, int c)const
+{
+	int row = r * uWidth;
+	return contents[row + c];
+}
+
+template<unsigned uWidth, unsigned uHeight>
+Screen<uWidth, uHeight>& Screen<uWidth, uHeight>::set(char c)
+{
+	contents[cursor] = c;
+	return *this;
+}
+
+template<unsigned uWidth, unsigned uHeight>
+Screen<uWidth, uHeight>& Screen<uWidth, uHeight>::set(int r, int col,char ch)
+{
+	int row = r * uWidth;
+	contents[row + col] = ch;
+	return *this;
+}
