@@ -338,8 +338,8 @@ public:
 	Screen& move(int r, int c);
 	Screen& set(char);
 	Screen& set(int, int, char);
-	const Screen& display(ostream& os) { do_display(os); return *this; }
-	const Screen& display(ostream& os) { do_display(os); return*this; }
+	Screen& display(ostream& os) { do_display(os); return *this; }
+	const Screen& display(ostream& os) const { do_display(os); return*this; }
 protected:
 private:
 	static const char bkground = ' ';

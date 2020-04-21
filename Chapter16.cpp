@@ -82,3 +82,14 @@ void Exercise16_13()
 	由于函数模板的实例化只处理特定类型，每个BlobPtr实例与用相同类型实例化的运算符建立一对一的关系即可
 	*/
 }
+
+void Exercise16_14()
+{
+	Screen<5, 3> myScreen;
+	myScreen.display(cout);
+	myScreen.move(4, 0).set('#');
+	
+	Screen<5, 5> nextScreen('X');
+	nextScreen.move(4, 0).set('#').display(cout);
+	cout << 
+}
