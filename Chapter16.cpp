@@ -85,9 +85,9 @@ void Exercise16_13()
 
 void Exercise16_14()
 {
-	Screen<5, 3> myScreen;
+	Screen<3, 5> myScreen;
 	myScreen.display(cout);
-	myScreen.move(4, 0).set('#');
+	myScreen.move(4, 0).set('#').display(cout);
 	
 	Screen<5, 5> nextScreen('X');
 	nextScreen.move(4, 0).set('#').display(cout);
@@ -95,7 +95,7 @@ void Exercise16_14()
 	nextScreen.display(cout);
 	cout << endl;
 
-	const Screen<5, 3> blank;
+	const Screen<3, 5> blank;
 	myScreen.set('#').display(cout);
 	cout << endl;
 	blank.display(cout);
@@ -110,7 +110,7 @@ void Exercise16_14()
 	myScreen.clear('Z').display(cout);
 	cout << endl;
 
-	Screen<5, 3> temp = myScreen.move(4, 0);
+	Screen<3, 5> temp = myScreen.move(4, 0);
 	temp.set('#');
 	myScreen.display(cout);
 	cout << endl;

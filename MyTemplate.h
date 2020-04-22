@@ -345,7 +345,17 @@ private:
 	static const char bkground = ' ';
 	int cursor = 0;
 	string contents;
-	void do_display(ostream& os) const { os << contents; }
+	void do_display(ostream& os) const 
+	{
+		for (int i = 0; i < uHeight; ++i)
+		{
+			for (int j = 0; j < uWidth; ++j)
+			{
+				os << contents[i * uWidth + j];
+			}
+			os << endl;
+		}
+	}
 };
 
 template<unsigned uWidth, unsigned uHeight>
