@@ -31,7 +31,8 @@ void Exercise15_4()
 
 void Exercise15_6()
 {
-	Quote quote(string("qqqq"), 100);
+	string name = "qqqq";
+	Quote quote(name, 100);
 	BulKQuote bulkQuote(string("wwww"), 100, 10, 0.1);
 	PrintTotal(cout, quote, 20);
 	PrintTotal(cout, bulkQuote, 20);

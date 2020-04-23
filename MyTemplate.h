@@ -1,5 +1,7 @@
 #pragma once
 #include  "stdafx.h"
+#include <stdexcept>
+
 template<typename T>
 int Compare(const T& v1, const T& v2)
 {
@@ -214,7 +216,7 @@ bool operator==(const BlobTemp<T>& lhs, const BlobTemp<T>& rhs)
 	{
 		return false;
 	}
-	for (size_t i = 0; i < lha, size(); ++i)
+	for (size_t i = 0; i < lhs.size(); ++i)
 	{
 		if (lhs[i] != rhs[i])
 		{
@@ -232,7 +234,7 @@ template <typename T> class BlobPtrTemp
 	friend bool operator==<T>(const BlobPtrTemp<T>&, const BlobPtrTemp<T>&);
 public:
 	BlobPtrTemp() :curr(0) {}
-	BlobPtrTemp(BlobTemp<T>&a,size_t sz = 0):wptr(a.data),curr(ze){}
+	BlobPtrTemp(BlobTemp<T>&a,size_t sz = 0):wptr(a.data),curr(sz){}
 	T& operator[](size_t i)
 	{
 		auto p = check(i, "subscript out of range");
@@ -282,12 +284,12 @@ shared_ptr<vector<T> > BlobPtrTemp<T>::check(size_t i, const string& msg) const
 	auto ret = wptr.lock();
 	if (!ret)
 	{
-		throw runtime_error("unbound BlobPtrTemp");
+		//throw runtime_error("unbound BlobPtrTemp");
 	}
 	
 	if (i >= ret->size() || i < 0)
 	{
-		throw out_of_range(msg);
+		//throw out_of_range(msg);
 	}
 	
 	return ret;

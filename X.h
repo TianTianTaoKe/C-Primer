@@ -195,7 +195,7 @@ element(s.element), first_free(s.first_free), cap(s.cap)
 }
 
 inline
-StrVec& StrVec::operator=(StrVec && rhs)
+StrVec& StrVec::operator=(StrVec && rhs) throw()
 {
 	if (this != &rhs)
 	{
