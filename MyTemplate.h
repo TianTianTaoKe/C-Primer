@@ -418,3 +418,345 @@ istream & operator >> (istream & is,Screen<uWidth,uHeight>& s)
     s.contents = t.substr(0,uWidth*uHeight);
     return is;
 }
+
+template<typename T>
+class Vec;
+
+template<typename T>
+bool operator==(const Vec<T>& lhs, const Vec<T>& rhs);
+
+template<typename T>
+bool operator!=(const Vec<T>& lhs, const Vec<T>& rhs);
+
+template<typename T>
+bool operator>(const Vec<T>& lhs, const Vec<T>& rhs);
+
+template<typename T>
+bool operator>=(const Vec<T>& lhs, const Vec<T>& rhs);
+
+template<typename T>
+bool operator<(const Vec<T>& lhs, const Vec<T>& rhs);
+
+template<typename T>
+bool operator<=(const Vec<T>& lhs, const Vec<T>& rhs);
+
+template<typename T>
+class Vec
+{
+public:
+	friend bool operator== <T>(const Vec& lhs, const Vec& rhs);
+	friend bool operator!= <T>(const Vec& lhs, const Vec& rhs);
+	friend bool operator>  <T>(const Vec& lhs, const Vec& rhs);
+	friend bool operator>= <T>(const Vec& lhs, const Vec& rhs);
+	friend bool operator<  <T>(const Vec& lhs, const Vec& rhs);
+	friend bool operator<= <T>(const Vec& lhs, const Vec& rhs);
+	Vec():
+		element(nullptr), first_free(nullptr), cap(nullptr){}
+	Vec(initializer_list<T> li);
+	Vec(const Vec&);
+	Vec(Vec&&) throw();
+	Vec& operator=(const Vec&);
+	Vec& operator=(Vec &&)throw();
+	Vec& operator=(initializer_list<T> il);
+	T& operator[](size_t n){ return element[n]; }
+	const T& operator[](size_t n) const{ return element[n]; }
+	~Vec();
+	void push_back(const T&);
+	size_t size() const{ return first_free - element; }
+	size_t capacity() const{ return cap - element; }
+	T* begin() const{ return element; }
+	T* end() const{ return first_free; }
+	void reserve(size_t n);
+	void resize(size_t n);
+	void resize(size_t n, const T &);
+protected:
+private:
+	T *element;
+	T *first_free;
+	T *cap;
+	static allocator<T> alloc;
+
+	void chk_n_alloc(){ if (size() == capacity()) reallocate(); }
+	pair<T*, T*> alloc_n_copy(const T*, const T*);
+	void free();
+	void reallocate();
+	void reallocate(size_t newcapacity);
+};
+
+template<typename T>
+inline
+Vec<T>::Vec(initializer_list<T> il)
+{
+	auto newdata = alloc_n_copy(il.begin(), il.end());
+	element = newdata.first;
+	first_free = cap = newdata.second;
+}
+
+template<typename T>
+inline
+Vec<T>::Vec(Vec &&s) throw() :
+element(s.element), first_free(s.first_free), cap(s.cap)
+{
+	s.element = s.first_free = s.cap = nullptr;
+}
+
+template<typename T>
+inline
+Vec<T>& Vec<T>::operator=(Vec && rhs) throw()
+{
+	if (this != &rhs)
+	{
+		free();
+		element = rhs.element;
+		first_free = rhs.first_free;
+		cap = rhs.cap;
+
+		rhs.element = rhs.first_free = rhs.cap = nullptr;
+	}
+
+	return *this;
+}
+
+template<typename T>
+allocator<T> Vec<T>::alloc;
+
+template<typename T>
+void Vec<T>::push_back(const T& s)
+{
+	chk_n_alloc();
+	alloc.construct(first_free++, s);
+}
+
+template<typename T>
+pair<T*, T*> Vec<T>::alloc_n_copy(const T *b,const T *e)
+{
+	auto date = alloc.allocate(e - b);
+	return{ date, uninitialized_copy(b, e, date) };
+}
+
+template<typename T>
+void Vec<T>::free()
+{
+	if (element)
+	{
+		//for (auto p = first_free; p != element;)
+		//{
+		//	alloc.destroy(--p);
+		//}
+		for_each(element, first_free, [](T &s){alloc.destroy(&s); });
+	}
+	alloc.deallocate(element, cap - element);
+}
+
+template<typename T>
+Vec<T>::Vec(const Vec& s)
+{
+	auto data = alloc_n_copy(s.begin(), s.end());
+	element = data.first;
+	first_free = cap = data.second;
+}
+
+template<typename T>
+Vec<T>::~Vec()
+{
+	free();
+}
+
+template<typename T>
+Vec<T>& Vec<T>::operator=(const Vec& s)
+{
+	auto data = alloc_n_copy(s.begin(), s.end());
+	free();
+	element = data.first;
+	first_free = cap =data.second;
+	return *this;
+}
+
+template<typename T>
+Vec<T>& Vec<T>::operator=(initializer_list<T> il)
+{
+	auto data = alloc_n_copy(il.begin(), il.end());
+	free();
+	element = data.first;
+	first_free = cap = data.second;
+	return *this;
+}
+
+template<typename T>
+void Vec<T>::reallocate()
+{
+	auto newcapacity = size() ? 2 * size() : 1;
+
+	auto newdata = alloc.allocate(newcapacity);
+
+	auto dest = newdata;
+	auto elem = element;
+
+	for (size_t i = 0; i != size(); ++i)
+	{
+		alloc.construct(dest++, std::move(*elem++));
+	}
+	free();
+	element = newdata;
+	first_free = dest;
+	cap = element + newcapacity;
+}
+
+template<typename T>
+void Vec<T>::reallocate(size_t newcapacity)
+{
+	auto newdata = alloc.allocate(newcapacity);
+
+	auto dest = newdata;
+	auto elem = element;
+
+	for (size_t i = 0; i != size(); ++i)
+	{
+		alloc.construct(dest++, std::move(*elem++));
+	}
+	free();
+	element = newdata;
+	first_free = dest;
+	cap = element + newcapacity;
+}
+
+template<typename T>
+void Vec<T>::reserve(size_t n)
+{
+	if (n>capacity())
+	{
+		reallocate(n);
+	}
+}
+
+template<typename T>
+void Vec<T>::resize(size_t n)
+{
+	if (n>size())
+	{
+		while (size() < n)
+		{
+			push_back("");
+		}
+	}
+	else if (n < size())
+	{
+		while (size() > n)
+		{
+			alloc.destroy(--first_free);
+		}
+	}
+}
+
+template<typename T>
+void Vec<T>::resize(size_t n,const T& s)
+{
+	if (n > size())
+	{
+		while (size() < n)
+		{
+			push_back(s);
+		}
+	}
+}
+
+template<typename T>
+bool operator==(const Vec<T>& lhs, const Vec<T>& rhs)
+{
+	if (lhs.size() != rhs.size())
+	{
+		return false;
+	}
+	for (auto itr1 = lhs.begin(), itr2 = rhs.begin(); 
+			itr1 != lhs.end() && itr2 != rhs.end();++itr1,++itr2)
+	{
+		if (*itr1 != *itr2)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+template<typename T>
+bool operator!=(const Vec<T>& lhs, const Vec<T>& rhs)
+{
+	return !(lhs == rhs);
+}
+
+template<typename T>
+bool operator<(const Vec<T>& lhs, const Vec<T>& rhs)
+{
+	auto itr1 = lhs.begin(), itr2 = rhs.begin();
+	for (;itr1 != lhs.end() && itr2 != rhs.end(); ++itr1, ++itr2)
+	{
+		if (*itr1 < *itr2)
+			return true;
+		else if (*itr1 > *itr2)
+			return false;
+	}
+
+	if (itr1 == lhs.end() && itr2 != lhs.end())
+	{
+		return true;
+	}
+	return false;
+}
+
+template<typename T>
+bool operator<=(const Vec<T>& lhs, const Vec<T>& rhs)
+{
+	auto itr1 = lhs.begin(), itr2 = rhs.begin();
+	for (; itr1 != lhs.end() && itr2 != rhs.end(); ++itr1, ++itr2)
+	{
+		if (*itr1 < *itr2)
+			return true;
+		else if (*itr1 > *itr2)
+			return false;
+	}
+
+	if (itr1 == lhs.end())
+	{
+		return true;
+	}
+	return false;
+}
+
+template<typename T>
+bool operator>(const Vec<T>& lhs, const Vec<T>& rhs)
+{
+	auto itr1 = lhs.begin(), itr2 = rhs.begin();
+	for (; itr1 != lhs.end() && itr2 != rhs.end(); ++itr1, ++itr2)
+	{
+		if (*itr1 > *itr2)
+			return true;
+		else if (*itr1 < *itr2)
+			return false;
+	}
+
+	if (itr1 != lhs.end() && itr2 == lhs.end())
+	{
+		return true;
+	}
+	return false;
+}
+
+template<typename T>
+bool operator>=(const Vec<T>& lhs, const Vec<T>& rhs)
+{
+	auto itr1 = lhs.begin(), itr2 = rhs.begin();
+	for (; itr1 != lhs.end() && itr2 != rhs.end(); ++itr1, ++itr2)
+	{
+		if (*itr1 > *itr2)
+			return true;
+		else if (*itr1 < *itr2)
+			return false;
+	}
+
+	if (itr2 == lhs.end())
+	{
+		return true;
+	}
+	return false;
+}

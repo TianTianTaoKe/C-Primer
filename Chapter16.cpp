@@ -122,3 +122,15 @@ void Exercise16_15()
 	cin >> myScreen;
 	cout << myScreen;
 }
+
+void Exercise16_16()
+{
+	Vec<string> strVec1{"1","2","3","4"};
+	Vec<string> strVec2{"1","2","3","5"};
+	cout << *strVec1.begin() << endl;
+	cout << *strVec2.begin() << endl;
+
+	cout << (strVec1 == strVec2) << endl;
+	cout << (strVec1 < strVec2) << endl;
+	cout << (strVec1 > strVec2) << endl;
+}
