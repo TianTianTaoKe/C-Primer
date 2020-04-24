@@ -115,3 +115,10 @@ void Exercise16_14()
 	myScreen.display(cout);
 	cout << endl;
 }
+
+void Exercise16_15()
+{
+	Screen<3, 5> myScreen;
+	cin >> myScreen;
+	cout << myScreen;
+}

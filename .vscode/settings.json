@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "iostream": "cpp",
-        "stdexcept": "cpp"
+        "stdexcept": "cpp",
+        "iosfwd": "cpp"
     },
     "cmake.configureOnOpen": true,
     "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
