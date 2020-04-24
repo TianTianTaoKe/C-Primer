@@ -28,9 +28,12 @@ OBJ_DEBUG := $(addprefix $(DBG_PATH)/, $(addsuffix .o, $(notdir $(basename $(SRC
 # clean files list
 DISTCLEAN_LIST := $(OBJ) \
                   $(OBJ_DEBUG)
+DISTCLEAN_LIST := $(foreach x,$(DISTCLEAN_LIST),$(subst /,\, $(x)))
+
 CLEAN_LIST := $(TARGET) \
 			  $(TARGET_DEBUG) \
 			  $(DISTCLEAN_LIST)
+CLEAN_LIST := $(foreach x,$(CLEAN_LIST),$(subst /,\, $(x)))
 
 # default rule
 default: all
@@ -58,9 +61,9 @@ debug: $(TARGET_DEBUG)
 .PHONY: clean
 clean:
 	@echo CLEAN $(CLEAN_LIST)
-	@rm -f $(CLEAN_LIST)
+	@del /q $(CLEAN_LIST)
 
 .PHONY: distclean
 distclean:
 	@echo CLEAN $(CLEAN_LIST)
-	@rm -f $(DISTCLEAN_LIST)
+	@del /q $(DISTCLEAN_LIST)

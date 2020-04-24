@@ -36,7 +36,7 @@ vector<double>dVec2(iVec.begin(), iVec.end());
 //9.14
 void Exercise9_14()
 {
-	list<char *>chList{ "1", "2", "3" };
+	list<string>chList{ "1", "2", "3" };
 	vector<string > strVec1;
 	strVec1.assign(chList.begin(), chList.end());
 }

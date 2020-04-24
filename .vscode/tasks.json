@@ -32,7 +32,14 @@
             "args": [
                 "clean"
             ],
-            "type": "shell"
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         },
         {
             "label": "Compile",
@@ -47,10 +54,6 @@
                 "-fexec-charset=GBK"
             ],
             "type": "process",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
             "presentation": {
                 "echo": true,
                 "reveal": "always",

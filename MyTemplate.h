@@ -284,12 +284,12 @@ shared_ptr<vector<T> > BlobPtrTemp<T>::check(size_t i, const string& msg) const
 	auto ret = wptr.lock();
 	if (!ret)
 	{
-		//throw runtime_error("unbound BlobPtrTemp");
+		throw std::runtime_error("unbound BlobPtrTemp");
 	}
 	
 	if (i >= ret->size() || i < 0)
 	{
-		//throw out_of_range(msg);
+		throw std::out_of_range(msg);
 	}
 	
 	return ret;
