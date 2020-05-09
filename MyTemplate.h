@@ -760,3 +760,37 @@ bool operator>=(const Vec<T>& lhs, const Vec<T>& rhs)
 	}
 	return false;
 }
+
+template<typename T>
+void print(const T& t)
+{
+    for (typename T::size_type i = 0;i<t.size();++i)
+    {
+        cout << t.at(i) << " ";
+    }
+    cout << endl;
+}
+
+template<typename T>
+void print2(const T& t)
+{
+    for (typename T::const_iterator iter = t.begin();iter != t.end();++iter)
+    {
+        cout << *iter << " ";
+    }
+    cout << endl;
+}
+
+class DebugDelete
+{
+public:
+    DebugDelete(std::ostream &s = std::cerr):os(s){}
+    template <typename T>
+    void operator()(T *p)const
+    {
+        os << "deleting unique_ptr" << endl;
+        delete p;
+    }
+private:
+    std::ostream &os;
+};

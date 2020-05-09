@@ -1,9 +1,12 @@
 #include "stdafx.h"
-#include "TextQuery.h"
+
 #include <iterator>
 using std::inserter;
 
-TextQuery::TextQuery(ifstream & ifile) :file(new StrVec )
+#include "TextQuery.h"
+#include "MyTemplate.h"
+
+TextQuery::TextQuery(ifstream & ifile) :file(new StrVec,DebugDelete() )
 {
 	int iLine = 0;
 	string strLine;

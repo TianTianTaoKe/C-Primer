@@ -134,3 +134,41 @@ void Exercise16_16()
 	cout << (strVec1 < strVec2) << endl;
 	cout << (strVec1 > strVec2) << endl;
 }
+
+void Exercise16_17()
+{
+	/*
+	当用来声明模板参数时，typename和class是等价的。
+	在模板类型参数上使用作用域运算符访问::来访问其成员时，为了指明访问的是类型成员，需要在名字前使用typename关键字
+	*/
+}
+
+void Exercise16_18()
+{
+	/*
+	(a) U前面需要加typename template <typename T,typename U,typename V> void f1(T,U,V);
+	(b) 在作用域中模板参数名不能重用 template <typaname T> T f2(int & t);
+	(c) 模板定义时才能指定 template <typename T> T foo(T,unsign int *);
+	(d) 未指定函数模板返回类型 template <typename T> void f4 (T,T);
+	(e) 合法，在模板作用域中，类型参数Ctype屏蔽了之前定义的类型别名Ctype
+	*/
+}
+
+void Exercise16_19()
+{
+	vector <int> vi = {1,2,3,4,5};
+	print(vi);
+}
+
+void Exercise16_20()
+{
+	vector <int> vi = {1,2,3,4,5};
+	print2(vi);
+}
+
+void Exercise16_23()
+{
+	/*
+	当shared_ptr的引用计数变为0，需要释放资源时，才会调用删除器进行资源释放。Exercise12_27函数结束时，textQuery生命周期结束，引用计数为0，释放资源。
+	*/
+}
