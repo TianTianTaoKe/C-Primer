@@ -172,3 +172,31 @@ void Exercise16_23()
 	当shared_ptr的引用计数变为0，需要释放资源时，才会调用删除器进行资源释放。Exercise12_27函数结束时，textQuery生命周期结束，引用计数为0，释放资源。
 	*/
 }
+
+void Exercise16_25()
+{
+	/*
+	1.extern 表明不在本文件中生成实例化代码
+	2.使用Sales_data实例化vector，在其他文件中可以使用extern声明此实例，使用此定义
+	*/
+}
+
+void Exercise16_26()
+{
+	/*
+	不能，显示实例化vector<NoDefault>时会实例化所有的成员函数，包括接受容器大小参数的构造函数。这个构造函数会使用元素
+	类型的默认构造函数，而NoDefault没有默认构造函数。
+	*/
+}
+
+void Exercise_27()
+{
+	/*
+	a.Stack对char的实例化
+	b.stack对double的实例化
+	c.stack对int的实例化
+	d.没有，已经有对char的实例化
+	e.没有，已经有对char的实例化
+	f.stack对string的实例化
+	*/
+}
