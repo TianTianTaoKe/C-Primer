@@ -122,7 +122,7 @@ void fun2(A& a)
 
 int main(int argc, char * argv[])
 {
-	Exercise12_27();
+	Exercise16_30();
 
 
 	system("pause");

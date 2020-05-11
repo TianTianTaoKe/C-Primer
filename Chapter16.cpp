@@ -200,3 +200,33 @@ void Exercise_27()
 	f.stack对string的实例化
 	*/
 }
+
+void Exercise16_30()
+{
+	BlobTemp<string> b1;
+	cout << b1.size() << endl;
+	{
+		BlobTemp<string> b2 = {"a","an","the"};
+		b1 = b2;
+		b2.push_back("about");
+		cout << b1.size() << ";" << b2.size() << endl;
+	}
+	cout << b1.size() << endl;
+	for (int i = 0;i<b1.size();++i){
+		cout << b1.at(i) << endl;
+	}
+	cout << endl << endl;
+
+	UP<int> u1(new int(42));
+	cout << *u1 << endl;
+	UP<int> u2(u1.release());
+	cout << *u2 << endl;
+}
+
+void Exercise16_31()
+{
+	/*
+	unique_ptr是编译时绑定删除器。删除器可直接保存在unique_ptr对象中。通过这种方式避免了间接调用删除器的运行时开销，
+	而编译时还可以将自定义的删除器编译为内联形式
+	*/
+}

@@ -60,6 +60,97 @@ void MyPrint(const T(&a)[N])
     }
 }
 
+template <typename T>
+class SP{
+public:
+    SP():p(nullptr),use(nullptr){}
+    explicit SP(T *pt):p(pt),use(new size_t(1)){}
+    SP(const SP &sp):
+        p(sp.p),use(sp.use){
+            if (use){
+                ++ *use;
+            }
+        }
+    SP& operator=(const SP&);
+    ~SP();
+    T& operator*() {return *p;}
+    T& operator*() const {return *p;}
+private:
+    T *p;
+    size_t *use;
+};
+
+template <typename T>
+SP<T>::~SP(){
+    if (use && --*use == 0){
+        delete p;
+        delete use;
+    }
+}
+
+template <typename T>
+SP<T>& SP<T>::operator=(const SP<T> &rhs)
+{
+    if (rhs.use){
+        ++*rhs.use;
+    }
+    if (use && --*use == 0){
+        delete p;
+        delete use;
+    }
+    p = rhs.p;
+    use = rhs.use;
+    return *this;
+}
+
+template <typename T,class... Args>
+SP<T>make_SP(Args&&... args)
+{
+    return SP<T>(new T(std::forward<Args>(args)...));
+}
+
+template <typename T>
+class UP
+{
+public:
+    UP():p(nullptr){}
+    UP(const UP&) = delete;
+    explicit UP(T* pt):p(pt){}
+    UP& operator=(const UP&) = delete;
+    ~UP();
+    T* release();
+    void reset(T *new_p);
+    T& operator*(){return *p;}
+    T& operator*() const {return *p;}
+private:
+    T *p;
+};
+
+template<typename T>
+void UP<T>::reset(T *new_p)
+{
+    if (p){
+        delete p;
+    }
+    p = new_p;
+}
+
+template<typename T>
+UP<T>::~UP()
+{
+    if (p){
+        delete p;
+    }
+}
+
+template<typename T>
+T* UP<T>::release()
+{
+    T *q = p;
+    p = nullptr;
+    return q;
+}
+
 template <typename> class BlobPtrTemp;
 template <typename> class BlobTemp;
 template <typename T>
@@ -85,11 +176,11 @@ public:
         return  ret;
     }
 
-    size_type size() const { return data->size(); }
+    size_type size() const { return (*data).size(); }
     bool empty() const { return data->empty(); }
 
     void push_back(const T& t) { data->push_back(t); }
-    void push_back(T&& t) { data->push_back(std::move(t)); }
+    void push_back(T&& t) { (*data).push_back(std::move(t)); }
     void pop_back();
 
     T& front();
@@ -104,20 +195,20 @@ public:
     void swap(BlobTemp& b) { data.swap(b.data); }
 
 private:
-    std::shared_ptr<std::vector<T> > data;
+    SP<std::vector<T> > data;
 
     void check(size_type i, const std::string& msg) const;
 };
 
 template <typename T>
 BlobTemp<T>::BlobTemp(T* p, std::size_t n)
-    :data(std::make_shared<std::vector<T> >(p, p + n))
+    :data(make_SP<std::vector<T> >(p, p + n))
 {
 }
 
 template <typename T>
 BlobTemp<T>::BlobTemp()
-    : data(std::make_shared<std::vector<T> >())
+    : data(make_SP<std::vector<T> >())
 {
 
 }
@@ -125,14 +216,14 @@ BlobTemp<T>::BlobTemp()
 template <typename T>
 template <typename It>
 BlobTemp<T>::BlobTemp(It b, It e)
-    :data(std::make_shared<std::vector<T>>(b, e))
+    :data(make_SP<std::vector<T>>(b, e))
 {
 
 }
 
 template<typename T>
 BlobTemp<T>::BlobTemp(std::initializer_list<T> il) :
-    data(std::make_shared<std::vector<T> >(il))
+    data(make_SP<std::vector<T> >(il))
 {
 
 }
@@ -140,7 +231,7 @@ BlobTemp<T>::BlobTemp(std::initializer_list<T> il) :
 template<typename T>
 void BlobTemp<T>::check(size_type i, const std::string& msg) const
 {
-    if (i >= data->size())
+    if (i >= (*data).size())
     {
         throw std::out_of_range(msg);
     }
