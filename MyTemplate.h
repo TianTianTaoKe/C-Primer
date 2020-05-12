@@ -885,3 +885,9 @@ public:
 private:
     std::ostream &os;
 };
+
+template<typename T>
+bool compare(const T& a,const T& b)
+{
+    return a < b;
+}

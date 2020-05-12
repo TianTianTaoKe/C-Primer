@@ -277,3 +277,24 @@ void Exercise16_36()
     f.合同，T1为int*，T2为const int*    
     */ 
 }
+
+void Exercise16_37()
+{
+    /*
+    可以，显示指定模板实参即可
+    */
+}
+
+void Exercise16_38()
+{
+    /*
+    在调用make_share时，有时不给出参数，表示进行值初始化。有时给出的参数与维护的动态
+    对象的类型不直接相关。如make_share<string>(10,'9')创建值为'999999999'的string，
+    因此编译器无法从参数推断模板实参，需要显示指定模板实参。
+    */
+}
+
+void Exercise16_39()
+{
+    compare<const char *>("123","1234");
+}

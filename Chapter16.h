@@ -55,3 +55,9 @@ void Exercise16_34();
 void Exercise16_35();
 
 void Exercise16_36();
+
+void Exercise16_37();
+
+void Exercise16_38();
+
+void Exercise16_39();
