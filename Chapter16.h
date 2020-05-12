@@ -43,3 +43,15 @@ void Exercise16_26();
 void Exercise16_27();
 
 void Exercise16_30();
+
+void Exercise16_31();
+
+void Exercise16_32();
+
+void Exercise16_33();
+
+void Exercise16_34();
+
+void Exercise16_35();
+
+void Exercise16_36();
