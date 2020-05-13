@@ -298,3 +298,65 @@ void Exercise16_39()
 {
     compare<const char *>("123","1234");
 }
+
+void Exercise16_40()
+{
+    /*
+    函数合法，序列元素类型必须支持+运算符，*beg+0是右值，返回类型被推断为元素
+    类型的常量引用
+    */
+}
+
+void Exercise16_41()
+{
+    auto a = sum(1,1);
+    auto b = sum(1,1.1);
+    auto c = sum(1,1.1f);
+    cout << a << " " << b << " " << c << " " << endl;
+}
+
+void Exercise16_42()
+{
+    /*
+    a.T int &,val int &
+    b.T const int &,val const int &
+    c.T int,val int &&
+    */
+}
+
+void Exercise16_43()
+{
+    /*
+    T int &,val int &
+    */
+}
+
+void Exercise16_44()
+{
+    /*
+    a.int,int
+    b.const int,cosnt int
+    c.int,int
+
+    a.int,const int &
+    b.int,const int &
+    c.int,const int &
+    */
+}
+
+void Exercise16_45()
+{
+    /*
+    a.T int,val int && 
+    b.T int &,val int &
+    */
+}
+
+void Exercise16_46()
+{
+    /*
+    construct在新内存空间中创造对象。若第二个参数是一个左值则进行拷贝动作。
+    但是std::move将一个左值转换为右值引用，construct会调用string的移动构造
+    函数，避免了不必要的拷贝操作
+    */
+}

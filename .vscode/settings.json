@@ -33,5 +33,6 @@
     },
     "cmake.configureOnOpen": true,
     "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
-    "files.encoding": "gbk"
+    "files.encoding": "gbk",
+    "editor.fontSize": 20
 }
