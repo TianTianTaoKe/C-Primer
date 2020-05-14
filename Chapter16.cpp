@@ -360,3 +360,14 @@ void Exercise16_46()
     函数，避免了不必要的拷贝操作
     */
 }
+
+static void g(int && i,int &j)
+{
+    cout << i << " " << j << endl;
+}
+
+void Exercise16_47()
+{
+    int i = 0;
+    flip(g,i,42);
+}
