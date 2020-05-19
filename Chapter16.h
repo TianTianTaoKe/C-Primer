@@ -77,3 +77,7 @@ void Exercise16_45();
 void Exercise16_46();
 
 void Exercise16_47();
+
+void Exercise16_49();
+
+void Exercise16_50();

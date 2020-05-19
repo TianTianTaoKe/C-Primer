@@ -361,7 +361,7 @@ void Exercise16_46()
     */
 }
 
-static void g(int && i,int &j)
+void g(int && i,int &j)
 {
     cout << i << " " << j << endl;
 }
@@ -370,4 +370,32 @@ void Exercise16_47()
 {
     int i = 0;
     flip(g,i,42);
+}
+
+void Exercise16_49()
+{
+    /*
+    g(42) g(T)
+    g(p) g(T*)
+    g(ci) g(T)
+    g(p2) g(T*)
+    f(42) f(T)
+    f(p) f(const T*)
+    f(ci) f(T)
+    f(p2) f(const T*)  
+    */
+}
+
+void Exercise16_50()
+{
+    int i = 42,*p = &i;
+    const int ci = 0,*p2 = &ci;
+    gg(42);
+    gg(p);
+    gg(ci);
+    gg(p2);
+    f(42);
+    f(p);
+    f(ci);
+    f(p2);
 }
