@@ -81,3 +81,17 @@ void Exercise16_47();
 void Exercise16_49();
 
 void Exercise16_50();
+
+void Exercise16_51();
+
+void Exercise16_52();
+
+void Exercise16_53();
+
+void Exercise16_54();
+
+void Exercise16_55();
+
+void Exercise16_56();
+
+void Exercise16_57();

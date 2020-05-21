@@ -960,3 +960,28 @@ template <typename T> void gg(T* t)
 {
     cout << "gg(T* t)" << endl;
 }
+
+template <typename T,typename... Args>
+void foo(const T& t,const Args& ... rest)
+{
+    cout << sizeof...(Args) << endl;
+    cout << sizeof...(rest) << endl;
+}
+
+template <typename T>
+ostream& print3(ostream& os,const T &t)
+{
+    os << t <<endl;
+}
+template <typename T,typename... Args>
+ostream& print3(ostream& os,const T &t,Args...rest)
+{
+    os << t << ";";
+    return print3(os,rest...);
+}
+
+template <typename... Args>
+ostream& ErrorMsg(ostream& os,Args... rest)
+{
+    print3(os,debug_rep(rest)...);
+}

@@ -399,3 +399,58 @@ void Exercise16_50()
     f(ci);
     f(p2);
 }
+
+void Exercise16_51()
+{
+    /*
+    3,2,1,0
+    3,2,1,0
+    */
+}
+
+void Exercise16_52()
+{
+    int i = 0;double d = 3.14;string s = "123";
+    foo(i,s,42,d);
+    foo(s,42,"hi");
+    foo(d,s);
+    foo("hi");
+}
+
+void Exercise16_53()
+{
+    int i = 0;
+    string s = "hi";
+    print3(cout,i);
+    print3(cout,i,s);
+    print3(cout,i,s,4.3,'a',"adf");
+}
+
+void Exercise16_54()
+{
+    /*
+    编译报错
+    */
+}
+
+void Exercise16_55()
+{
+    /*
+    假设调用print(cout ,i,s,42),过程为
+    print(cout,s,42)
+    print(cout,s)--此时非可变参数版本声明不在作用域中，无法调用，继续
+    print(cout) -- 编译报错
+    */
+}
+
+void Exercise16_56()
+{
+    ErrorMsg(cout,"123",4,'a');
+}
+
+void Exercise16_57()
+{
+    /*
+    该版本不要求参数具有相同类型
+    */
+}
