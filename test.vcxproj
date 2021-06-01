@@ -88,7 +88,7 @@
     <ClCompile Include="Chapter9.cpp" />
     <ClCompile Include="Chapter8.cpp" />
     <ClCompile Include="fact.cpp" />
-    <ClCompile Include="MyTemplate.h.cpp" />
+    <ClCompile Include="MyTemplate.cpp" />
     <ClCompile Include="numbered.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Sales_data.cpp" />

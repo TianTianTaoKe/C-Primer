@@ -926,20 +926,11 @@ template<typename T>string debug_rep(T* p)
     return ret.str();
 }
 
-string debug_rep(const string &s)
-{
-    return '"' + s + '"';
-}
+string debug_rep(const string& s);
 
-string debug_rep(char *p)
-{
-    return debug_rep(string(p));
-}
+string debug_rep(char* p);
 
-string debug_rep(const char *p)
-{
-    return debug_rep(string(p));
-}
+string debug_rep(const char* p);
 
 template <typename T> void f(T t)
 {
@@ -971,7 +962,7 @@ void foo(const T& t,const Args& ... rest)
 template <typename T>
 ostream& print3(ostream& os,const T &t)
 {
-    os << t <<endl;
+    return os << t <<endl;
 }
 template <typename T,typename... Args>
 ostream& print3(ostream& os,const T &t,Args...rest)
@@ -983,5 +974,5 @@ ostream& print3(ostream& os,const T &t,Args...rest)
 template <typename... Args>
 ostream& ErrorMsg(ostream& os,Args... rest)
 {
-    print3(os,debug_rep(rest)...);
+    return print3(os,debug_rep(rest)...);
 }
