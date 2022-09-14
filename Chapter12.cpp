@@ -198,8 +198,8 @@ char* addStr(const char* str1, const char* str2)
 	size_t strlen2 = strlen(str2);
 	size_t strlenAll = strlen1 + strlen2 + 1;
 	char * newStr = new char[strlenAll]();
-	strcpy_s(newStr, strlenAll, str1);
-	strcat_s(newStr, strlenAll, str2);
+	strcpy(newStr, str1);
+	strcat(newStr, str2);
 	return newStr;
 }
 
@@ -207,7 +207,7 @@ char* addStr(const string& str1, const string& str2)
 {
 	string newStr = str1 + str2;
 	char *newCharArr = new char[newStr.size() + 1];
-	strcpy_s(newCharArr, newStr.size() + 1, newStr.c_str());
+	strcpy(newCharArr, newStr.c_str());
 	return newCharArr;
 }
 
