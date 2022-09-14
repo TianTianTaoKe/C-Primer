@@ -2,6 +2,7 @@
 #include "Chapter16.h"
 #include "MyTemplate.h"
 #include "Sales_data.h"
+#include "X.h"
 
 void Exercise16_1()
 {
@@ -445,7 +446,9 @@ void Exercise16_55()
 
 void Exercise16_56()
 {
-    ErrorMsg(cout,"123",4,'a');
+    int a = 100;
+    Sales_data book("1234",5,1,2);
+    ErrorMsg(cout,"123",4,'a',&a,book,&book);
 }
 
 void Exercise16_57()
@@ -453,4 +456,58 @@ void Exercise16_57()
     /*
     该版本不要求参数具有相同类型。
     */
+}
+
+void Exercise16_58()
+{
+    StrVec strvec;
+    strvec.emplace_back("End");
+    strvec.emplace_back(3,'!');
+    print(strvec);
+
+    Vec<string>svec;
+    svec.emplace_back("End");
+    svec.emplace_back(3,'!');
+    print(svec);
+}
+
+void Exercise16_59()
+{
+    /*
+    由于S是一个左值，经过包扩展，它将以如下形式传递给construct。
+    std::forward<string>(s)
+    forward<string>的结果类型是string&，因此，construct将得到一个左值引用实参，它继续将此参数传递给string的拷贝构造函数来创建新元素。
+    */
+}
+
+void Exercise16_60()
+{
+    /*
+    make_shared的工作过程类似emplace_back。
+    它接受参数包，经过扩展，转发给new，作为vector的初始化参数
+    */
+}
+
+void Exercise16_61()
+{
+    vector<string> vs = {"Hello","World","!"};
+    BlobTemp<string> b3(vs.begin(),vs.end());
+    cout << b3.size() << endl;
+    for (size_t i = 0; i < b3.size(); ++i)
+    {
+        cout << b3.at(i)<<" ";
+    }
+
+    cout << endl
+         << endl;
+    string as[3] = {"This", "is", "end"};
+    BlobTemp<string> b4(as, as + 3);
+    cout << b4.size() << endl;
+
+    for (size_t i = 0; i < b4.size(); ++i)
+    {
+        cout << b4.at(i) << " ";
+    }
+    cout << endl
+         << endl;
 }

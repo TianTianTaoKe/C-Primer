@@ -61,7 +61,7 @@ debug: $(TARGET_DEBUG)
 .PHONY: clean
 clean:
 	@echo CLEAN $(CLEAN_LIST)
-	@del /q $(CLEAN_LIST)
+	@rm -f $(CLEAN_LIST)
 
 .PHONY: distclean
 distclean:

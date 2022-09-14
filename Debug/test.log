@@ -1,0 +1,59 @@
+﻿  stdafx.cpp
+  Chapter10.cpp
+D:\code\C-Primer\Chapter10.cpp(180,84): warning C4018: “>=”: 有符号/无符号不匹配
+D:\code\C-Primer\Chapter10.cpp(228,86): warning C4018: “>=”: 有符号/无符号不匹配
+D:\code\C-Primer\Chapter10.cpp(252,93): warning C4018: “>=”: 有符号/无符号不匹配
+D:\code\C-Primer\Chapter10.cpp(277,20): warning C4018: “>=”: 有符号/无符号不匹配
+D:\code\C-Primer\Chapter10.cpp(291,20): warning C4018: “>=”: 有符号/无符号不匹配
+D:\code\C-Primer\Chapter10.cpp(467,10): warning C4018: “>=”: 有符号/无符号不匹配
+  Chapter11.cpp
+  Chapter12.cpp
+D:\code\C-Primer\X.h(363,59): warning C4018: “>=”: 有符号/无符号不匹配
+D:\code\C-Primer\X.h(363,86): warning C4018: “<=”: 有符号/无符号不匹配
+D:\code\C-Primer\X.h(374,59): warning C4018: “>=”: 有符号/无符号不匹配
+  Chapter13.cpp
+D:\code\C-Primer\X.h(363,59): warning C4018: “>=”: 有符号/无符号不匹配
+D:\code\C-Primer\X.h(363,86): warning C4018: “<=”: 有符号/无符号不匹配
+D:\code\C-Primer\X.h(374,59): warning C4018: “>=”: 有符号/无符号不匹配
+  Chapter14.cpp
+D:\code\C-Primer\X.h(363,59): warning C4018: “>=”: 有符号/无符号不匹配
+D:\code\C-Primer\X.h(363,86): warning C4018: “<=”: 有符号/无符号不匹配
+D:\code\C-Primer\X.h(374,59): warning C4018: “>=”: 有符号/无符号不匹配
+  Chapter15.cpp
+D:\code\C-Primer\X.h(363,59): warning C4018: “>=”: 有符号/无符号不匹配
+D:\code\C-Primer\X.h(363,86): warning C4018: “<=”: 有符号/无符号不匹配
+D:\code\C-Primer\X.h(374,59): warning C4018: “>=”: 有符号/无符号不匹配
+D:\code\C-Primer\Chapter15.cpp(119,11): warning C4101: “d3”: 未引用的局部变量
+D:\code\C-Primer\Chapter15.cpp(123,7): warning C4101: “base”: 未引用的局部变量
+D:\code\C-Primer\Chapter15.cpp(122,23): warning C4101: “dd3”: 未引用的局部变量
+D:\code\C-Primer\Chapter15.cpp(121,21): warning C4101: “dd2”: 未引用的局部变量
+D:\code\C-Primer\Chapter15.cpp(118,11): warning C4101: “d2”: 未引用的局部变量
+D:\code\C-Primer\Chapter15.cpp(176,28): warning C4244: “+=”: 从“double”转换到“int”，可能丢失数据
+D:\code\C-Primer\Chapter15.cpp(193,31): warning C4244: “+=”: 从“double”转换到“int”，可能丢失数据
+  Chapter16.cpp
+D:\code\C-Primer\Chapter16.cpp(215,21): warning C4018: “<”: 有符号/无符号不匹配
+  Chapter9.cpp
+D:\code\C-Primer\Chapter9.cpp(294,15): warning C4018: “<”: 有符号/无符号不匹配
+D:\code\C-Primer\Chapter9.cpp(357,18): warning C4018: “>”: 有符号/无符号不匹配
+D:\code\C-Primer\Chapter9.cpp(373,9): warning C4244: “return”: 从“double”转换到“int”，可能丢失数据
+D:\code\C-Primer\Chapter9.cpp(409,11): warning C4018: “>”: 有符号/无符号不匹配
+D:\code\C-Primer\Chapter9.cpp(425,11): warning C4018: “>”: 有符号/无符号不匹配
+  Chapter8.cpp
+  fact.cpp
+  MyTemplate.cpp
+  numbered.cpp
+  Person.cpp
+  Sales_data.cpp
+  Screen.cpp
+  StrBlob.cpp
+  test.cpp
+  TextQuery.cpp
+D:\code\C-Primer\X.h(363,59): warning C4018: “>=”: 有符号/无符号不匹配
+D:\code\C-Primer\X.h(363,86): warning C4018: “<=”: 有符号/无符号不匹配
+D:\code\C-Primer\X.h(374,59): warning C4018: “>=”: 有符号/无符号不匹配
+  X.cpp
+D:\code\C-Primer\X.h(363,59): warning C4018: “>=”: 有符号/无符号不匹配
+D:\code\C-Primer\X.h(363,86): warning C4018: “<=”: 有符号/无符号不匹配
+D:\code\C-Primer\X.h(374,59): warning C4018: “>=”: 有符号/无符号不匹配
+  正在生成代码...
+  test.vcxproj -> D:\code\C-Primer\Debug\test.exe

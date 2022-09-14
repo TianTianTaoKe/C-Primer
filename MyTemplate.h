@@ -535,6 +535,7 @@ template<typename T>
 class Vec
 {
 public:
+    typedef typename vector<T>::size_type size_type;
 	friend bool operator== <T>(const Vec& lhs, const Vec& rhs);
 	friend bool operator!= <T>(const Vec& lhs, const Vec& rhs);
 	friend bool operator>  <T>(const Vec& lhs, const Vec& rhs);
@@ -560,6 +561,10 @@ public:
 	void reserve(size_t n);
 	void resize(size_t n);
 	void resize(size_t n, const T &);
+    template<class... Args>
+	void emplace_back(Args&&...);
+    T& at(int i) { return element[i]; };
+	const T& at(int i) const{ return element[i]; };
 protected:
 private:
 	T *element;
@@ -749,6 +754,15 @@ void Vec<T>::resize(size_t n,const T& s)
 			push_back(s);
 		}
 	}
+}
+
+template<typename T>
+template<class... Args>
+inline
+void Vec<T>::emplace_back(Args&&... args)
+{
+    chk_n_alloc();
+    alloc.construct(first_free++,std::forward<Args>(args)...);
 }
 
 template<typename T>

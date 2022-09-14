@@ -140,6 +140,7 @@ private:
 class StrVec
 {
 public:
+	typedef int size_type;
 	friend bool operator==(const StrVec& lhs, const StrVec& rhs);
 	friend bool operator!=(const StrVec& lhs, const StrVec& rhs);
 	friend bool operator>(const StrVec& lhs, const StrVec& rhs);
@@ -165,6 +166,10 @@ public:
 	void reserve(size_t n);
 	void resize(size_t n);
 	void resize(size_t n, const string &);
+	template<class... Args>
+	void emplace_back(Args&&... args);
+	string &at(int i);
+	const string &at(int i) const;
 protected:
 private:
 	string *element;
@@ -208,6 +213,14 @@ StrVec& StrVec::operator=(StrVec && rhs) throw()
 	}
 
 	return *this;
+}
+
+template<class... Args>
+inline
+void StrVec::emplace_back(Args&&... args)
+{
+	chk_n_alloc();
+	alloc.construct(first_free++,std::forward<Args>(args)...);
 }
 
 class MyString

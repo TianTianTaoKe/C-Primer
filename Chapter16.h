@@ -95,3 +95,11 @@ void Exercise16_55();
 void Exercise16_56();
 
 void Exercise16_57();
+
+void Exercise16_58();
+
+void Exercise16_59();
+
+void Exercise16_60();
+
+void Exercise16_61();

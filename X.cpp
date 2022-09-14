@@ -391,6 +391,16 @@ void StrVec::resize(size_t n,const string& s)
 	}
 }
 
+string &StrVec::at(int i)
+{
+	return element[i];
+}
+
+const string &StrVec::at(int i) const
+{
+	return element[i];
+}
+
 bool operator==(const StrVec& lhs, const StrVec& rhs)
 {
 	if (lhs.size() != rhs.size())
